@@ -1,5 +1,6 @@
 import React, {useState,useEffect} from 'react';
 // import EventDetails from '../components/EventDetails';
+import EventCard from '../components/EventCard';
 
 
 // Ticketmaster api important endpoints
@@ -223,28 +224,27 @@ const GetEventData = () => {
             {
 
                 return (
-                    <div key={event?.id}>
-                        <h1>{event?.name}</h1>
-                        <h2>{event?.dates?.start.localDate}</h2>
+                    // <div key={event?.id}>
+                    //     <h1>{event?.name}</h1>
+                    //     <h2>{event?.dates?.start.localDate}</h2>
                         
-                        <h2>{event?.dates?.start.localTime}</h2>
-                        <h2>{event?._embedded?.venues[0]?.name}</h2>
-                        <h2>{event?._embedded?.venues[0]?.city?.name } - {event?._embedded?.venues[0]?.state?.stateCode} </h2>
-                        <h2>{event?._embedded?.venues[0]?.country?.countryCode}</h2>
-                        <h2>{event?._embedded?.venues[0]?.postalCode}</h2>
-                        <h2>{event?._embedded?.venues[0]?.location?.longitude}</h2>
-                        <h2>{event?._embedded?.venues[0]?.location?.latitude}</h2>
-                        <h2>{event?._embedded?.venues[0]?.timezone}</h2>
-                        <h2>{event?._embedded?.venues[0]?.url}</h2>
+                    //     <h2>{event?.dates?.start.localTime}</h2>
+                    //     <h2>{event?._embedded?.venues[0]?.name}</h2>
+                    //     <h2>{event?._embedded?.venues[0]?.city?.name } - {event?._embedded?.venues[0]?.state?.stateCode} </h2>
+                    //     <h2>{event?._embedded?.venues[0]?.country?.countryCode}</h2>
+                    //     <h2>{event?._embedded?.venues[0]?.postalCode}</h2>
+                    //     <h2>{event?._embedded?.venues[0]?.location?.longitude}</h2>
+                    //     <h2>{event?._embedded?.venues[0]?.location?.latitude}</h2>
+                    //     <h2>{event?._embedded?.venues[0]?.timezone}</h2>
+                    //     <h2>{event?._embedded?.venues[0]?.url}</h2>
+                    //    {=
+                    //   
+                    // </div>
+
+                    event?.name && <div key={event.id}>
+                    <EventCard data={event} />
+                   </div>
                     
-                        
-                        
-
-
-                       
-                      
-
-                    </div>
                 )
             }
             )}
