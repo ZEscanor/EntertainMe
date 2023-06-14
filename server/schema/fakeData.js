@@ -5,6 +5,8 @@ const  UserList = [
         id: 1,
         name: 'John Doe',
         nationality: 'American',
+        email: '2r2r@gmail.com',
+        age: 22,
         friends: [
             {
                 id: 2,
@@ -20,21 +22,30 @@ const  UserList = [
         id: 2,
         name: 'Jane Doe',
         nationality: 'American',
+        email: '12r2f1qf@gmail.com',
+        age: 22,
     },
     {
         id: 3,
         name: 'John Smith',
         nationality: 'British',
+        age: 22,
+        email: 'fafasfaf@gmail.com'
+
     },
     {
         id: 4,
         name: 'Jane Smith',
         nationality: 'British',
+        age: 22,
+        email: 'fafasfaf@gmail.com'
     },
     {
         id: 5,
         name: 'Johns Doe',
         nationality: 'American',
+        age: 22,
+        email: 'fafasfaf@gmail.com'
     },
     
     
