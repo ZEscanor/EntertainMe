@@ -4,9 +4,15 @@ import {useQuery,useLazyQuery, useMutation, gql} from '@apollo/client';
 const QUERY_ALL_USERS = gql`
    query GetUsers {
   users {
-  name
-  id
-  nationality
+  ... on UsersSuccess{
+  
+    users{
+      id
+      name
+      nationality
+      }
+
+  }
   }
 }
     `;
@@ -114,7 +120,7 @@ function ApolloData() {
                 Create User 
             </button>
         </div>
-      {data && data.users.map((user: {
+      {data && data?.users?.users.map((user: {
             name: string;
             id: string;
             nationality: string;
