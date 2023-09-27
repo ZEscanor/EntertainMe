@@ -7,7 +7,9 @@ import {GoogleMap,
 
 } from "@react-google-maps/api";
 import Placer from './Placer';
-import Distance from "./DistanceCalculator"
+import Distance from "./DistanceCalculator";
+import EventMarkers from "./EventMarkers";
+
 
 
 
@@ -24,6 +26,7 @@ const MapData = () => {
   
   const [event,setEvent] = useState<LatLngLiteral>();
   const [directionFromMap, setDirectionsFromMap] = useState<DirectionsResult | null>(null);
+  //const [eventsNearLocation, setEventNearLocation] = useState<LatLngLiteral>();
   const mapRef = useRef<GoogleMap>();
   const centerer = useMemo<LatLngLiteral>(() => ({
     lat: 43.45, lng: -80.49}), []); // The latitude and longitude the map will be centered in first render
@@ -89,6 +92,8 @@ const MapData = () => {
           }}
           
           />}
+
+          {event && <EventMarkers event={event}/>}
          
          {event && (
           <>

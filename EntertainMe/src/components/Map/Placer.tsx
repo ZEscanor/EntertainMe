@@ -23,7 +23,7 @@ import { Combobox,
  };
 
 const Placer = ({setEvent}: PlaceProps) => {
-  const [showSuggestions, setShowSuggestions] = useState(false);
+
     const {ready, 
         value, 
         setValue, 
@@ -31,13 +31,15 @@ const Placer = ({setEvent}: PlaceProps) => {
         clearSuggestions} = usePlacesAutocomplete();
 
     const handleSelect = async(val: string) => {
+      console.log(val)
       setValue(val, false);
       clearSuggestions();
 
       const results = await getGeocode({address: val}); // gives results where we can extract latitute and longitude
       const {lat, lng} = await getLatLng(results[0]);  // we then set the event we wish to search for here by lat/lng
-      console.log(lat,lng, "our lat and long") 
+      
       setEvent({lat, lng})
+      console.log(results)
    
      
     
@@ -45,12 +47,9 @@ const Placer = ({setEvent}: PlaceProps) => {
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       setValue(e.target.value);
-      setShowSuggestions(true);
     };
 
-    const closeSuggestions = () => {
-      setShowSuggestions(false);
-    };
+  
   return (
     // <Combobox onSelect={handleSelect}>
     //   <ComboboxInput
@@ -72,12 +71,11 @@ const Placer = ({setEvent}: PlaceProps) => {
     <input
       value={value}
       onChange={handleInputChange}
-      onBlur={closeSuggestions}
       disabled={!ready}
       placeholder="Search For An Event or Location"
-      className="input-field"
+      className="comboboxInput"
     />
-    {showSuggestions && status === 'OK' && (
+    {status === 'OK' && (
       <ul className="suggestions">
         {data.map(({ place_id, description }) => (
           <li key={place_id} onClick={() => handleSelect(description)}>

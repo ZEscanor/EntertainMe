@@ -30,7 +30,7 @@ function App() {
      {/* <div className="card">
         <ApolloData />
    </div> */}
-   <GetEventData />
+   {/* <GetEventData /> */}
    <Map/>
     {/* </ApolloProvider> */}
     </div>
