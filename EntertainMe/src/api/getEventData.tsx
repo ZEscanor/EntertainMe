@@ -21,6 +21,7 @@ interface Props  {
     page: string;
     countryCode: string;
     apiKey: string;
+    latlong: string;
 }
 
 const GetEventData = () => {
@@ -33,6 +34,7 @@ const GetEventData = () => {
         page: "",
         countryCode: "",
         apiKey: "",
+        latlong: "",
     });
 
 
@@ -57,6 +59,9 @@ const GetEventData = () => {
         if(form.countryCode){
             url += `&countryCode=${form.countryCode}`
         }
+        if(form.latlong){
+            url += `&latlong=${form.latlong}`
+        }
 
 
         
@@ -69,7 +74,7 @@ const GetEventData = () => {
                 );
             const data = await res.json();
             console.log(data);
-            setEventData(data._embedded.events);
+            setEventData(data?._embedded.events);
 
         }
         fetchEvents();
@@ -207,9 +212,10 @@ const GetEventData = () => {
         value={form.countryCode}
         onChange={handleChange}
          />
-        <label htmlFor="apiKey">API Key</label>
-        <input type="text" id="apiKey" name="apiKey"
-        value={form.apiKey}
+
+<label htmlFor="latlong">API Key</label>
+        <input type="text" id="latlong" name="latlong"
+        value={form.latlong}
         onChange={handleChange}
          />
         <button type="submit">Submit</button>

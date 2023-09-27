@@ -87,3 +87,9 @@ button:focus-visible {
   width: 80%;
   height: 100vh;
 }
+.eventFilter {
+  display: flex;
+  align-items: flex-start; /* Align components at the top */
+  flex: 1; /* Allow the event list to grow to fill available space */
+  margin-left: 20px; /* Add some margin for separation */
+}
