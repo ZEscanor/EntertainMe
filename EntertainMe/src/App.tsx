@@ -17,7 +17,7 @@ function App() {
   return (
     // <ApolloProvider client={client}>
     <div>
-      <div>
+      <div className='topmostDiv'>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>

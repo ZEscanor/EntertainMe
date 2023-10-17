@@ -31,7 +31,7 @@ const Placer = ({setEvent}: PlaceProps) => {
         clearSuggestions} = usePlacesAutocomplete();
 
     const handleSelect = async(val: string) => {
-      console.log(val)
+      //console.log(val)
       setValue(val, false);
       clearSuggestions();
 
@@ -39,7 +39,7 @@ const Placer = ({setEvent}: PlaceProps) => {
       const {lat, lng} = await getLatLng(results[0]);  // we then set the event we wish to search for here by lat/lng
       
       setEvent({lat, lng})
-      console.log(results)
+     // console.log(results)
    
      
     
@@ -75,11 +75,16 @@ const Placer = ({setEvent}: PlaceProps) => {
       placeholder="Search For An Event or Location"
       className="comboboxInput"
     />
+    <span  className="clear-button">X</span>
     {status === 'OK' && (
       <ul className="suggestions">
         {data.map(({ place_id, description }) => (
-          <li key={place_id} onClick={() => handleSelect(description)}>
+          
+          <li key={place_id} onClick={() => handleSelect(description)} className="liste">
             {description}
+            <div className="divider">
+
+            </div>
           </li>
         ))}
       </ul>

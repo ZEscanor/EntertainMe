@@ -8,17 +8,14 @@ import {GoogleMap,
 
 } from "@react-google-maps/api";
 
-const EventMarkers = ({ event }) => {
- 
+const EventMarkers = ({ event, fetchDirections}) => {
   const latlon = `${event.lat}` + "," + `${event.lng}`;
-  
   const apikey = import.meta.env.VITE_TICKETMASTER_API_KEY;
-  //const url = `https://app.ticketmaster.com/discovery/v2/events?apikey=${apikey}&latlong=${latlon}`;
-  const url = `https://app.ticketmaster.com/discovery/v2/events?apikey=7GKlCC&latlong=${latlon}`;
+  const url = `https://app.ticketmaster.com/discovery/v2/events?apikey=${apikey}&latlong=${latlon}`;
   const [eventFilterer, setEventFilterer] = useState([]);
   const [selectedMarker, setSelectedMarker] = useState(null);
 const [venueEvents, setVenueEvents] = useState([]);
-  console.log(url);
+  //console.log(url);
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -43,7 +40,7 @@ const [venueEvents, setVenueEvents] = useState([]);
             uniqueEvents.push(event);
           }
 
-          if (uniqueEventName.size > 100) {
+          if (uniqueEventName.length > 100) {
             break; // Exit the loop when you have collected 100 unique events
           }
         }
@@ -57,19 +54,20 @@ const [venueEvents, setVenueEvents] = useState([]);
     fetchEvents();
   }, [url]); // Add 'url' as a dependency to trigger the effect when 'url' changes
 
-  console.log(eventFilterer);
+  //console.log(eventFilterer);
 
   const handleMarkerClick = async (area) => {
     setSelectedMarker(area);
+   // console.log(area,'area')
     try {
       // Fetch events for the selected venue (you may need to customize the URL)
-      const venueEventsUrl = `https://app.ticketmaster.com/discovery/v2/events?apikey=lCC&venueId=${area}`;
+      const venueEventsUrl = `https://app.ticketmaster.com/discovery/v2/events?apikey=${apikey}&venueId=${area}`;
       const res = await fetch(venueEventsUrl);
       if (!res.ok) {
         throw new Error("Network response not ok");
       }
       const data = await res.json();
-      console.log("dataaaaa",data)
+      //console.log("dataaaaa",data)
       // Assuming your API response structure has events in data._embedded.events
       setVenueEvents(data._embedded.events);
     } catch (error) {
@@ -87,6 +85,8 @@ const [venueEvents, setVenueEvents] = useState([]);
     // clusterer={clusterer}
     onClick={()=>{
       handleMarkerClick(area._embedded.venues[0].id)
+        fetchDirections({lat: parseFloat(area._embedded.venues[0].location.latitude), lng:parseFloat(area._embedded.venues[0].location.longitude)})
+      
     }}
     />
    
@@ -95,10 +95,15 @@ const [venueEvents, setVenueEvents] = useState([]);
   <div>
   {selectedMarker && (
     <div className="eventFilter">
-      <h2>Events at {selectedMarker.venueName}</h2>
+      <h2>Events at {venueEvents[0]?._embedded.venues[0]?.name}</h2>
       <ul>
         {venueEvents.map((event) => (
-          <li key={event.id}>{event.name}</li>
+          <li key={event.id} className="liste">
+             <a href={event.url} target="_blank" rel="noopener noreferrer">
+             {event.name}
+             </a>
+             
+          </li>
         ))}
       </ul>
     </div>
