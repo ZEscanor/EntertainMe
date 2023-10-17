@@ -50,7 +50,7 @@ interface Props {
 }
 
 const EventCard: React.FC<Props> = ({ data }) => {
-    console.log(data, "data from event card")
+   // console.log(data, "data from event card")
     return (
         <div className="eventCard"  style={
             {

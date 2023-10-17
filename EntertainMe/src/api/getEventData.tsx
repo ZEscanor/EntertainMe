@@ -73,12 +73,12 @@ const GetEventData = () => {
             }
                 );
             const data = await res.json();
-            console.log(data);
+            //console.log(data);
             setEventData(data?._embedded.events);
 
         }
         fetchEvents();
-        console.log(eventData, "eventData");
+        //console.log(eventData, "eventData");
 
     }
         
@@ -97,10 +97,12 @@ const GetEventData = () => {
 
         
 
-     
+     //     console.log(event._embedded.venues[0].location.longitude);
+//     console.log(event._embedded.venues[0].location.latitude);
     
     
-        
+        //valid country codes US
+        //classification name
        
         
     // useEffect(() => {
@@ -159,8 +161,7 @@ const GetEventData = () => {
 //     console.log(event._embedded.venues[0].state.stateCode);
 //     console.log(event._embedded.venues[0].country.countryCode);
 //     console.log(event._embedded.venues[0].postalCode);
-//     console.log(event._embedded.venues[0].location.longitude);
-//     console.log(event._embedded.venues[0].location.latitude);
+
 //     console.log(event._embedded.venues[0].timezone);
 //     console.log(event._embedded.venues[0].url);
 //     console.log(event._embedded.venues[0].images[0].url);

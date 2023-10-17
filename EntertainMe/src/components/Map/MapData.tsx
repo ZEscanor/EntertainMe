@@ -17,6 +17,7 @@ import EventMarkers from "./EventMarkers";
 type LatLngLiteral = google.maps.LatLngLiteral;
 type DirectionsResult = google.maps.DirectionsResult;
 type MapOptions = google.maps.MapOptions;
+type InfoWindow = google.maps.InfoWindow;
 
 
 
@@ -38,12 +39,15 @@ const MapData = () => {
 
     }), []);
 
+    const infoWindow = useMemo<InfoWindow>
+
     const onLoad = useCallback((map) => (mapRef.current = map), []);
     const areas = useMemo(() => generateDummyData(centerer), [centerer])
 
     const fetchDirections = (area: LatLngLiteral) => {
+      console.log(area, event, "the fetch directions function", infoWindow)
       if(!event) return;
-
+       
       const directionService = new google.maps.DirectionsService(); // Create a new instance of directions service
 
       directionService.route({
@@ -93,7 +97,7 @@ const MapData = () => {
           
           />}
 
-          {event && <EventMarkers event={event}/>}
+          {event && <EventMarkers event={event} fetchDirections={fetchDirections}/>}
          
          {event && (
           <>
