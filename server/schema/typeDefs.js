@@ -29,6 +29,17 @@ const typeDefs = gql`
         actors: [Actor!]!
     }
 
+
+    type UsersSuccess {
+        users: [User!]!
+        }
+
+        type UsersError {
+            message: String!
+    
+    }
+
+    union UsersResults = UsersSuccess | UsersError
     type Query {
         
         users: UsersResults!
@@ -68,16 +79,7 @@ const typeDefs = gql`
 
         }
 
-        type UsersSuccess {
-        users: [User!]!
-        }
-
-        type UsersError {
-            message: String!
-    
-    }
-
-    union UsersResults = UsersSuccess | UsersError 
+         
     
 `;
 

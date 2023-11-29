@@ -103,7 +103,7 @@ const MapData = () => {
           <>
          <Marker position={event}  />
 
-
+{/* 
          <MarkerClusterer>
             {(clusterer) => (
             <div>
@@ -119,10 +119,10 @@ const MapData = () => {
             ))}
             </div>
          )} 
-          </MarkerClusterer>
+          </MarkerClusterer> */}
 
         
-         <Circle center={event} radius={15000} options={close}/>
+         {/* <Circle center={event} radius={15000} options={close}/> */}
          </>
          
          )}  
