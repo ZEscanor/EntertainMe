@@ -3,12 +3,6 @@ import usePlacesAutocomplete, {
     getLatLng
 } from "use-places-autocomplete";
 
-import { Combobox,
-    ComboboxInput,
-    ComboboxPopover,
-    ComboboxList,
-    ComboboxOption,
- } from "@reach/combobox";
 
  import "@reach/combobox/styles.css";
 
@@ -49,24 +43,15 @@ const Placer = ({setEvent}: PlaceProps) => {
       setValue(e.target.value);
     };
 
+    const handleClear = () => {
+    setValue("",false);
+    clearSuggestions();
+    setEvent(null)
+    };
+
   
   return (
-    // <Combobox onSelect={handleSelect}>
-    //   <ComboboxInput
-    //   value={value}
-    //   onChange={e=>setValue(e.target.value)}
-    //   disabled = {!ready}
-    //   className="comboboxInput"
-    //   placeholder="Search For An Event or Location"
-    //         />
-    //   <ComboboxPopover>
-    //     <ComboboxList>
-    //       {status === "OK" && data.map(({place_id, description})=> <ComboboxOption key={place_id}
-    //       value={description}
-    //       />)}
-    //     </ComboboxList>
-    //   </ComboboxPopover>
-    // </Combobox>
+  
     <div className="autocomplete">
     <input
       value={value}
@@ -75,7 +60,7 @@ const Placer = ({setEvent}: PlaceProps) => {
       placeholder="Search For An Event or Location"
       className="comboboxInput"
     />
-    <span  className="clear-button">X</span>
+    <span  className="clear-button" onClick={handleClear}>X</span>
     {status === 'OK' && (
       <ul className="suggestions">
         {data.map(({ place_id, description }) => (

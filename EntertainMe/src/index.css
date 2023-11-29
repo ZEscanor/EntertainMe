@@ -80,7 +80,7 @@ button:focus-visible {
 .controlBar {
   width: 40%;
   padding: 1rem;
-  background: grey;
+  background: whitesmoke;
   color: yellowgreen;
 }
 .map-container {
@@ -134,4 +134,23 @@ button:focus-visible {
 
 .clear-button:hover{
   color: #f00; 
+}
+.navbar-container{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  position: relative;
+  background-color: #232F3E;
+  height: 100px;
+  color: white;
+}
+
+.innerNav{
+  display: flex;
+  padding-top: 50px;
+  list-style: none;
+}
+.innerNav li{
+  color: #f00;
+  margin-right: 20px;
 }

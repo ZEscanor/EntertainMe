@@ -11,9 +11,10 @@ import {GoogleMap,
 const EventMarkers = ({ event, fetchDirections}) => {
   const latlon = `${event.lat}` + "," + `${event.lng}`;
   const apikey = import.meta.env.VITE_TICKETMASTER_API_KEY;
-  const url = `https://app.ticketmaster.com/discovery/v2/events?apikey=${apikey}&latlong=${latlon}`;
+  const url = `https://app.ticketmaster.com/discovery/v2/events?apikey=${apikey}&latlong=${latlon}&classificationName=music`;
   const [eventFilterer, setEventFilterer] = useState([]);
   const [selectedMarker, setSelectedMarker] = useState(null);
+  // classificationName= music
 const [venueEvents, setVenueEvents] = useState([]);
   //console.log(url);
 
@@ -29,6 +30,7 @@ const [venueEvents, setVenueEvents] = useState([]);
         }
 
         const data = await res.json();
+        console.log(data, "our data")
         const uniqueEventName = new Set();
         const uniqueEvents = [];
 
@@ -58,10 +60,10 @@ const [venueEvents, setVenueEvents] = useState([]);
 
   const handleMarkerClick = async (area) => {
     setSelectedMarker(area);
-   // console.log(area,'area')
+    console.log(eventFilterer,'area')
     try {
       // Fetch events for the selected venue (you may need to customize the URL)
-      const venueEventsUrl = `https://app.ticketmaster.com/discovery/v2/events?apikey=${apikey}&venueId=${area}`;
+      const venueEventsUrl = `https://app.ticketmaster.com/discovery/v2/events?apikey=${apikey}&venueId=${area}&classificationName=music`;
       const res = await fetch(venueEventsUrl);
       if (!res.ok) {
         throw new Error("Network response not ok");
@@ -69,7 +71,25 @@ const [venueEvents, setVenueEvents] = useState([]);
       const data = await res.json();
       //console.log("dataaaaa",data)
       // Assuming your API response structure has events in data._embedded.events
-      setVenueEvents(data._embedded.events);
+      const uniqueEventName = new Set();
+        const uniqueEvents = [];
+
+        for (let i = 0; i < data._embedded.events.length; i++) {
+          const event = data._embedded.events[i];
+
+          if (!uniqueEventName.has(event.name)) {
+            uniqueEventName.add(event.name);
+            uniqueEvents.push(event);
+          }
+
+          if (uniqueEventName.length > 100) {
+            break; // Exit the loop when you have collected 100 unique events
+          }
+        }
+  
+       
+        setVenueEvents(uniqueEvents);
+     // setVenueEvents(data._embedded.events);
     } catch (error) {
       console.error("Error fetching venue events:", error);
     }
