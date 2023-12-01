@@ -8,7 +8,8 @@ import {GoogleMap,
 } from "@react-google-maps/api";
 import Placer from './Placer';
 import Distance from "./DistanceCalculator";
-import EventMarkers from "./EventMarkers";
+import EventMarkers from "./EventMarkers.jsx";
+import PlacesSearch from "./PlacesSearch.tsx"; 
 
 
 
@@ -18,6 +19,7 @@ type LatLngLiteral = google.maps.LatLngLiteral;
 type DirectionsResult = google.maps.DirectionsResult;
 type MapOptions = google.maps.MapOptions;
 type InfoWindow = google.maps.InfoWindow;
+//type PlacesService = google.maps.places.PlacesService
 
 
 
@@ -40,9 +42,10 @@ const MapData = () => {
     }), []);
 
     const infoWindow = useMemo<InfoWindow>
-
     const onLoad = useCallback((map) => (mapRef.current = map), []);
     const areas = useMemo(() => generateDummyData(centerer), [centerer])
+    
+
 
     const fetchDirections = (area: LatLngLiteral) => {
       console.log(area, event, "the fetch directions function", infoWindow)
@@ -75,7 +78,18 @@ const MapData = () => {
 
            {!event && <p>Enter The address</p>}
            {directionFromMap && <Distance leg={directionFromMap.routes[0].legs[0]}/>}
-
+         
+         <div className='bottomBar'>
+          <div>
+           Food
+          </div>
+          <div>
+           Entertainment
+</div>
+<div>
+ Guides
+</div>  
+         </div>
        </div>
        <div className='map'>
         <GoogleMap
@@ -96,6 +110,10 @@ const MapData = () => {
           }}
           
           />}
+
+          {
+            mapRef && <PlacesSearch />
+          }
 
           {event && <EventMarkers event={event} fetchDirections={fetchDirections}/>}
          
