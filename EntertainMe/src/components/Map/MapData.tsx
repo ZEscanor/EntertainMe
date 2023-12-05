@@ -19,7 +19,7 @@ type LatLngLiteral = google.maps.LatLngLiteral;
 type DirectionsResult = google.maps.DirectionsResult;
 type MapOptions = google.maps.MapOptions;
 type InfoWindow = google.maps.InfoWindow;
-//type PlacesService = google.maps.places.PlacesService
+type PlacesService = google.maps.places.PlacesService
 
 
 
@@ -29,6 +29,7 @@ const MapData = () => {
   
   const [event,setEvent] = useState<LatLngLiteral>();
   const [directionFromMap, setDirectionsFromMap] = useState<DirectionsResult | null>(null);
+  const [entertainmentCheck, setEntertainmentCheck] = useState<boolean>(false)
   //const [eventsNearLocation, setEventNearLocation] = useState<LatLngLiteral>();
   const mapRef = useRef<GoogleMap>();
   const centerer = useMemo<LatLngLiteral>(() => ({
@@ -39,12 +40,11 @@ const MapData = () => {
       clickableIcons: false,
       mapId: "5d1787db251215c4",
 
-    }), []);
+    }), []); // these map options contain the custome styles made on the google dev platform
 
-    const infoWindow = useMemo<InfoWindow>
+    const infoWindow = useMemo<InfoWindow>   // an info window is a popup that could appear when a place is hovered/moused over
     const onLoad = useCallback((map) => (mapRef.current = map), []);
-    const areas = useMemo(() => generateDummyData(centerer), [centerer])
-    
+   
 
 
     const fetchDirections = (area: LatLngLiteral) => {
@@ -52,7 +52,6 @@ const MapData = () => {
       if(!event) return;
        
       const directionService = new google.maps.DirectionsService(); // Create a new instance of directions service
-
       directionService.route({
         origin: area,
         destination: event,
@@ -66,6 +65,17 @@ const MapData = () => {
       )
 
     }
+
+    const setEvents = (text: string) => {
+      if (text === "entertainment") {
+        setEntertainmentCheck(!entertainmentCheck);
+        console.log(entertainmentCheck);
+      }
+    };
+
+    const handleClick = () => {
+      setEvents("entertainment");
+    };
   return (
     <div className='contained'>
        <div className='controlBar'>
@@ -79,7 +89,7 @@ const MapData = () => {
            {!event && <p>Enter The address</p>}
            {directionFromMap && <Distance leg={directionFromMap.routes[0].legs[0]}/>}
          
-         <div className='bottomBar'>
+         <div className='bottomBar'  onClick={handleClick}>
           <div>
            Food
           </div>
@@ -91,7 +101,9 @@ const MapData = () => {
 </div>  
          </div>
        </div>
-       <div className='map'>
+     
+        <div className='map'>
+        {entertainmentCheck === true ? ( 
         <GoogleMap
         zoom={10}
         center={centerer}
@@ -111,15 +123,58 @@ const MapData = () => {
           
           />}
 
-          {
-            mapRef && <PlacesSearch />
-          }
+          
 
           {event && <EventMarkers event={event} fetchDirections={fetchDirections}/>}
          
          {event && (
           <>
          <Marker position={event}  />
+
+         </>
+         
+         )}  
+        </GoogleMap>
+        )  :( null )}
+       </div> 
+
+       {
+            entertainmentCheck === false && <PlacesSearch /> 
+          }
+    </div>
+  )
+}
+
+
+const defaultOptions = {
+ strokeOpacity: 0.5,
+ strokeWeight: 2,
+ clickable: false,
+ draggable: false,
+ editable : false,
+ visible: true,
+};
+
+const close = {
+  ...defaultOptions,
+  zIndex:3,
+  fillOpacity: 0.1,
+  strokeColor: '#8BC34B',
+  fillColor: "#8bC34A"
+}   // not revelant unless i want to add circle areas later
+
+
+const generateDummyData = (position: LatLngLiteral) =>{
+    const _areas: Array<LatLngLiteral> = [];
+    for (let i= 0; i<100; i++){
+      const direction = Math.random() < 0.5 ? -2 : 2
+      _areas.push({
+        lat: position.lat + Math.random() / direction,
+        lng: position.lng + Math.random() / direction,
+      });
+    }
+    return _areas
+};
 
 {/* 
          <MarkerClusterer>
@@ -141,44 +196,4 @@ const MapData = () => {
 
         
          {/* <Circle center={event} radius={15000} options={close}/> */}
-         </>
-         
-         )}  
-        </GoogleMap>
-       </div>
-    </div>
-  )
-}
-
-
-const defaultOptions = {
- strokeOpacity: 0.5,
- strokeWeight: 2,
- clickable: false,
- draggable: false,
- editable : false,
- visible: true,
-};
-
-const close = {
-  ...defaultOptions,
-  zIndex:3,
-  fillOpacity: 0.1,
-  strokeColor: '#8BC34B',
-  fillColor: "#8bC34A"
-}
-
-
-const generateDummyData = (position: LatLngLiteral) =>{
-    const _areas: Array<LatLngLiteral> = [];
-    for (let i= 0; i<100; i++){
-      const direction = Math.random() < 0.5 ? -2 : 2
-      _areas.push({
-        lat: position.lat + Math.random() / direction,
-        lng: position.lng + Math.random() / direction,
-      });
-    }
-    return _areas
-};
-
 export default MapData
