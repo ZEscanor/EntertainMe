@@ -1,20 +1,26 @@
 import React, { useEffect } from 'react';
 
-export default  function PlacesSearch(): JSX.Element {
+type PlaceProps = {
+  event:  google.maps.LatLngLiteral | undefined
+};
+
+export default  function PlacesSearch({event}:PlaceProps): JSX.Element {
 
   useEffect(() => {
     const mapp = document.querySelector('.map') as HTMLDivElement | null;
 
-    const position = { lat: -25.344, lng: 131.031 };
+
+    console.log(event)
 
     let map: google.maps.Map | null = null;
     let eventFired = false;
 
-    if (mapp !== null) {
+    if (mapp !== null && event != undefined) {
       map = new google.maps.Map(mapp, {
-        center: { lat: -33.8665433, lng: 151.1956316 },
+        center: event,
         zoom: 15,
       });
+     
 
       const listener = google.maps.event.addListener(map, 'idle', () => {
         if (!eventFired && map !== null) {
@@ -30,12 +36,19 @@ export default  function PlacesSearch(): JSX.Element {
         }
       });
     }
+    else{
+      map = new google.maps.Map(mapp, {
+        center: {lat: 41.8781136 , lng: -87.6297982
+        },
+        zoom: 15,
+      });
+    }
 
     function performTextSearch(placesSearch: google.maps.places.PlacesService, map: google.maps.Map) {
       const request: google.maps.places.TextSearchRequest = {
         location: map.getCenter(),
-        radius: '500',
-        query: 'restaurant',
+        radius: 500,
+        query: "FUN",
       };
 
       placesSearch.textSearch(request, callback);
@@ -82,7 +95,9 @@ export default  function PlacesSearch(): JSX.Element {
     //   });
     // }
   
-  }, []);
+  }, [event]);
 
-  return <div></div>;
+  return <div>
+   
+  </div>;
 }

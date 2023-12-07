@@ -1,0 +1,29 @@
+const defaultOptions = {
+ strokeOpacity: 0.5,
+ strokeWeight: 2,
+ clickable: false,
+ draggable: false,
+ editable : false,
+ visible: true,
+};
+
+const close = {
+  ...defaultOptions,
+  zIndex:3,
+  fillOpacity: 0.1,
+  strokeColor: '#8BC34B',
+  fillColor: "#8bC34A"
+}   // not revelant unless i want to add circle areas later
+
+
+const generateDummyData = (position: LatLngLiteral) =>{
+    const _areas: Array<LatLngLiteral> = [];
+    for (let i= 0; i<100; i++){
+      const direction = Math.random() < 0.5 ? -2 : 2
+      _areas.push({
+        lat: position.lat + Math.random() / direction,
+        lng: position.lng + Math.random() / direction,
+      });
+    }
+    return _areas
+};

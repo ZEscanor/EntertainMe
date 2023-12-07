@@ -12,7 +12,8 @@ import EventMarkers from "./EventMarkers.jsx";
 import PlacesSearch from "./PlacesSearch.tsx"; 
 
 
-
+const entertainment = "entertainment"
+const fun = "fun"
 
 
 type LatLngLiteral = google.maps.LatLngLiteral;
@@ -29,7 +30,7 @@ const MapData = () => {
   
   const [event,setEvent] = useState<LatLngLiteral>();
   const [directionFromMap, setDirectionsFromMap] = useState<DirectionsResult | null>(null);
-  const [entertainmentCheck, setEntertainmentCheck] = useState<boolean>(false)
+  const [eventCheck, setEventCheck] = useState<string>("")
   //const [eventsNearLocation, setEventNearLocation] = useState<LatLngLiteral>();
   const mapRef = useRef<GoogleMap>();
   const centerer = useMemo<LatLngLiteral>(() => ({
@@ -66,15 +67,20 @@ const MapData = () => {
 
     }
 
-    const setEvents = (text: string) => {
-      if (text === "entertainment") {
-        setEntertainmentCheck(!entertainmentCheck);
-        console.log(entertainmentCheck);
-      }
-    };
+    
 
-    const handleClick = () => {
-      setEvents("entertainment");
+    const handleClick = (passed:string) => {
+      switch(passed){
+        case entertainment:
+          setEventCheck(entertainment);
+          break;
+        case fun:
+          setEventCheck(fun);
+          break;
+        default:
+          console.log('no cases')
+      }
+      
     };
   return (
     <div className='contained'>
@@ -89,13 +95,20 @@ const MapData = () => {
            {!event && <p>Enter The address</p>}
            {directionFromMap && <Distance leg={directionFromMap.routes[0].legs[0]}/>}
          
-         <div className='bottomBar'  onClick={handleClick}>
-          <div>
-           Food
+         <div className='bottomBar'  >
+          <div className='Fun' onClick={() =>handleClick(fun)}>
+           Food & Fun
+           {eventCheck === "Fun" ? (
+             <div>
+            <p>Bars</p>
+    <p>Restaurants</p>
+    <p>Fun</p>
+  </div>
+) : null}
           </div>
-          <div>
-           Entertainment
-</div>
+          <div onClick={() =>handleClick(entertainment)}>
+           Entertainment & Tickets
+            </div>
 <div>
  Guides
 </div>  
@@ -103,7 +116,7 @@ const MapData = () => {
        </div>
      
         <div className='map'>
-        {entertainmentCheck === true ? ( 
+        {eventCheck === entertainment ? ( 
         <GoogleMap
         zoom={10}
         center={centerer}
@@ -139,61 +152,14 @@ const MapData = () => {
        </div> 
 
        {
-            entertainmentCheck === false && <PlacesSearch /> 
+            eventCheck === fun && <PlacesSearch event = {event} /> 
           }
     </div>
   )
 }
 
 
-const defaultOptions = {
- strokeOpacity: 0.5,
- strokeWeight: 2,
- clickable: false,
- draggable: false,
- editable : false,
- visible: true,
-};
-
-const close = {
-  ...defaultOptions,
-  zIndex:3,
-  fillOpacity: 0.1,
-  strokeColor: '#8BC34B',
-  fillColor: "#8bC34A"
-}   // not revelant unless i want to add circle areas later
 
 
-const generateDummyData = (position: LatLngLiteral) =>{
-    const _areas: Array<LatLngLiteral> = [];
-    for (let i= 0; i<100; i++){
-      const direction = Math.random() < 0.5 ? -2 : 2
-      _areas.push({
-        lat: position.lat + Math.random() / direction,
-        lng: position.lng + Math.random() / direction,
-      });
-    }
-    return _areas
-};
 
-{/* 
-         <MarkerClusterer>
-            {(clusterer) => (
-            <div>
-            {areas.map((area) => (
-              <Marker key={area.lat} 
-              position={area} 
-              clusterer={clusterer}
-              onClick={()=>{
-                fetchDirections(area)
-              }}
-              />
-             
-            ))}
-            </div>
-         )} 
-          </MarkerClusterer> */}
-
-        
-         {/* <Circle center={event} radius={15000} options={close}/> */}
 export default MapData
