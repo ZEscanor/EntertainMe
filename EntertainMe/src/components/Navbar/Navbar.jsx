@@ -1,19 +1,23 @@
 import React from 'react'
 
 const Navbar = () => {
+
+
+  
+
   return (
     <div className='navbar-container'>
 
       <ul  className='innerNav'>
         <li>
-             Home
+             Food & Fun
         </li>
         <li>
-            Find Events
+           Music & Arts Tickets
            
         </li>
         <li>
-           Fooddd
+           Ask AI
            
         </li>
       </ul>

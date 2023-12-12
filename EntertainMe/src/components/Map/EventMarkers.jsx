@@ -8,18 +8,26 @@ import {GoogleMap,
 
 } from "@react-google-maps/api";
 
-const EventMarkers = ({ event, fetchDirections}) => {
+import Popout from "./Popout"
+
+const EventMarkers = ({ event, fetchDirections, classifications = "music"}) => {
   const latlon = `${event.lat}` + "," + `${event.lng}`;
   const apikey = import.meta.env.VITE_TICKETMASTER_API_KEY;
-  const url = `https://app.ticketmaster.com/discovery/v2/events?apikey=${apikey}&latlong=${latlon}&classificationName=music`;
+  const url = `https://app.ticketmaster.com/discovery/v2/events?apikey=${apikey}&latlong=${latlon}&classificationName=${classifications}&size=60`;
+ 
   const [eventFilterer, setEventFilterer] = useState([]);
   const [selectedMarker, setSelectedMarker] = useState(null);
   // classificationName= music
 const [venueEvents, setVenueEvents] = useState([]);
+const [modal, setModal]= useState(false);
   //console.log(url);
 
   useEffect(() => {
+    if(eventFilterer.length > 5){
+      setEventFilterer([])
+    }
     const fetchEvents = async () => {
+      
       try {
         const res = await fetch(url, {
           method: "GET",
@@ -54,16 +62,18 @@ const [venueEvents, setVenueEvents] = useState([]);
     };
 
     fetchEvents();
-  }, [url]); // Add 'url' as a dependency to trigger the effect when 'url' changes
+  }, [url,classifications]); // Add 'url' as a dependency to trigger the effect when 'url' changes
 
   //console.log(eventFilterer);
 
   const handleMarkerClick = async (area) => {
+    setSelectedMarker(null)
     setSelectedMarker(area);
-    console.log(eventFilterer,'area')
+    setVenueEvents([])
+    console.log(eventFilterer, venueEvents,'area')
     try {
       // Fetch events for the selected venue (you may need to customize the URL)
-      const venueEventsUrl = `https://app.ticketmaster.com/discovery/v2/events?apikey=${apikey}&venueId=${area}&classificationName=music`;
+      const venueEventsUrl = `https://app.ticketmaster.com/discovery/v2/events?apikey=${apikey}&venueId=${area}&classificationName=${classifications}`;
       const res = await fetch(venueEventsUrl);
       if (!res.ok) {
         throw new Error("Network response not ok");
@@ -95,6 +105,13 @@ const [venueEvents, setVenueEvents] = useState([]);
     }
   };
 
+  const openModal = (eventId) => {
+    setModal(eventId)
+  }
+  const closeModal = () => {
+    setModal(null)
+  }
+
   return (
 <>
   {/* {(clusterer) => ( */}
@@ -119,13 +136,22 @@ const [venueEvents, setVenueEvents] = useState([]);
       <ul>
         {venueEvents.map((event) => (
           <li key={event.id} className="liste">
-             <a href={event.url} target="_blank" rel="noopener noreferrer">
-             {event.name}
-             </a>
+             {/* <a href={event.url} target="_blank" rel="noopener noreferrer">
              
+             
+            
+             </a> */}
+             {modal === event.id ? <Popout event={event}/> :<div  className="modal" onClick={()=>openModal(event.id)}>
+             {event.name}
+         
+             </div>
+                  } 
+           
           </li>
+          
         ))}
       </ul>
+     
     </div>
   )}
 </div>
