@@ -2,9 +2,10 @@ import React, { useEffect } from 'react';
 
 type PlaceProps = {
   event:  google.maps.LatLngLiteral | undefined
+  classifications: string | undefined
 };
 
-export default  function PlacesSearch({event}:PlaceProps): JSX.Element {
+export default  function PlacesSearch({event, classifications="FUN"}:PlaceProps): JSX.Element {
 
   useEffect(() => {
     const mapp = document.querySelector('.map') as HTMLDivElement | null;
@@ -16,10 +17,12 @@ export default  function PlacesSearch({event}:PlaceProps): JSX.Element {
     let eventFired = false;
 
     if (mapp !== null && event != undefined) {
+      if(!map){
       map = new google.maps.Map(mapp, {
         center: event,
-        zoom: 15,
+        zoom: 11,
       });
+    
      
 
       const listener = google.maps.event.addListener(map, 'idle', () => {
@@ -36,6 +39,7 @@ export default  function PlacesSearch({event}:PlaceProps): JSX.Element {
         }
       });
     }
+  }
     else{
       map = new google.maps.Map(mapp, {
         center: {lat: 41.8781136 , lng: -87.6297982
@@ -48,7 +52,7 @@ export default  function PlacesSearch({event}:PlaceProps): JSX.Element {
       const request: google.maps.places.TextSearchRequest = {
         location: map.getCenter(),
         radius: 500,
-        query: "FUN",
+        query: classifications,
       };
 
       placesSearch.textSearch(request, callback);
@@ -95,7 +99,7 @@ export default  function PlacesSearch({event}:PlaceProps): JSX.Element {
     //   });
     // }
   
-  }, [event]);
+  }, [event,classifications]);
 
   return <div>
    

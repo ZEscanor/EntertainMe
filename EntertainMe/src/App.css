@@ -40,3 +40,59 @@
 .read-the-docs {
   color: #888;
 }
+
+.Fun {
+  width: 50px; /* Set the width */
+  height: 50px; /* Set the height */
+  padding: 50px; /* Add padding for better visual */
+  background-color: #3498db; /* Button color */
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  color: #fff; /* Text color */
+  border: black; /* Remove default button border */
+  border-radius: 5px; /* Optional: Add border radius for rounded corners */
+  cursor: pointer; /* Set cursor to pointer for better UX */
+  /* Add any additional styles as needed */
+}
+
+.Fun:hover{
+  opacity: .5;
+}
+
+
+
+.entertainment {
+  width: 50px; /* Set the width */
+  height: 50px; /* Set the height */
+  padding: 50px; /* Add padding for better visual */
+  background-color: lawngreen; /* Button color */
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+  color: #fff; /* Text color */
+  border: black; /* Remove default button border */
+  border-radius: 5px; /* Optional: Add border radius for rounded corners */
+  cursor: pointer; /* Set cursor to pointer for better UX */
+  /* Add any additional styles as needed */
+}
+
+
+.entertainment:hover{
+  opacity: .5;
+}
+
+.askAi{
+  width: 50px; /* Set the width */
+  height: 50px; /* Set the height */
+  padding: 50px; /* Add padding for better visual */
+  background-color: lightcoral; /* Button color */
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+  color: #fff; /* Text color */
+  border: black; /* Remove default button border */
+  border-radius: 5px; /* Optional: Add border radius for rounded corners */
+  cursor: pointer;
+  bottom: 0;
+}

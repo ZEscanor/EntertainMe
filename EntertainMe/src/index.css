@@ -113,6 +113,9 @@ button:focus-visible {
       margin: 25px 0;
 }
 
+.liste{
+  margin-bottom: 10px;
+}
 .liste:hover{
   background-color: #f0f0f0; /* Background color on hover */
   color: #333;
@@ -153,4 +156,14 @@ button:focus-visible {
 .innerNav li{
   color: #f00;
   margin-right: 20px;
+}
+.feList p:hover{
+  color: red;
+  cursor: pointer;
+}
+.hidden {
+  display: none;
+}
+.modal{
+  display: flex;
 }

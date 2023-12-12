@@ -14,6 +14,11 @@ import PlacesSearch from "./PlacesSearch.tsx";
 
 const entertainment = "entertainment"
 const fun = "fun"
+const bars = "Bars"
+const Restaurants = "restaurants"
+const Music = "music"
+const Sports = "sports"
+const Arts = "arts"
 
 
 type LatLngLiteral = google.maps.LatLngLiteral;
@@ -31,6 +36,7 @@ const MapData = () => {
   const [event,setEvent] = useState<LatLngLiteral>();
   const [directionFromMap, setDirectionsFromMap] = useState<DirectionsResult | null>(null);
   const [eventCheck, setEventCheck] = useState<string>("")
+  const [classifications, setClassifications] = useState<string>("music")
   //const [eventsNearLocation, setEventNearLocation] = useState<LatLngLiteral>();
   const mapRef = useRef<GoogleMap>();
   const centerer = useMemo<LatLngLiteral>(() => ({
@@ -42,6 +48,7 @@ const MapData = () => {
       mapId: "5d1787db251215c4",
 
     }), []); // these map options contain the custome styles made on the google dev platform
+
 
     const infoWindow = useMemo<InfoWindow>   // an info window is a popup that could appear when a place is hovered/moused over
     const onLoad = useCallback((map) => (mapRef.current = map), []);
@@ -82,6 +89,10 @@ const MapData = () => {
       }
       
     };
+
+    const handleClassSet = (passed:string) => {
+      setClassifications(passed);
+    }
   return (
     <div className='contained'>
        <div className='controlBar'>
@@ -93,23 +104,37 @@ const MapData = () => {
            />
 
            {!event && <p>Enter The address</p>}
-           {directionFromMap && <Distance leg={directionFromMap.routes[0].legs[0]}/>}
+           {/* {directionFromMap && <Distance leg={directionFromMap.routes[0].legs[0]}/>} */}
          
          <div className='bottomBar'  >
-          <div className='Fun' onClick={() =>handleClick(fun)}>
+          <div className={`Fun ${eventCheck === fun ? 'hidden' : ""}` } onClick={() =>handleClick(fun)}>
            Food & Fun
-           {eventCheck === "Fun" ? (
-             <div>
-            <p>Bars</p>
-    <p>Restaurants</p>
-    <p>Fun</p>
+          
+          </div>
+
+          {eventCheck === fun ? (
+             <div className='feList'>
+              <h3 >Search For:</h3>
+            <p  onClick={() =>handleClassSet(bars)}>Bars</p>
+    <p onClick={() =>handleClassSet(Restaurants)}>Restaurants</p>
+    <p onClick={() =>handleClassSet(fun)}>Fun</p>
   </div>
 ) : null}
-          </div>
-          <div onClick={() =>handleClick(entertainment)}>
+          <div className={`entertainment ${eventCheck === entertainment ? 'hidden' : ""}` } onClick={() =>handleClick(entertainment)}>
            Entertainment & Tickets
+        
             </div>
-<div>
+
+
+            {eventCheck === entertainment ? (
+             <div  className='feList'>
+              <h3>Search For:</h3>
+            <p onClick={() =>handleClassSet(Music)} >Music</p>
+    <p onClick={() =>handleClassSet(Arts)}>Arts</p>
+    <p onClick={() =>handleClassSet(Sports)}>Sports</p>
+  </div>
+) : null}
+<div className='askAi'>
  Guides
 </div>  
          </div>
@@ -125,7 +150,7 @@ const MapData = () => {
         onLoad={onLoad}
         >
 
-          {directionFromMap && <DirectionsRenderer directions={directionFromMap} 
+          {/* {directionFromMap && <DirectionsRenderer directions={directionFromMap} 
           options={{
             polylineOptions: {
               zIndex: 50,
@@ -134,11 +159,11 @@ const MapData = () => {
             }
           }}
           
-          />}
+          />} */}
 
           
 
-          {event && <EventMarkers event={event} fetchDirections={fetchDirections}/>}
+          {event && <EventMarkers event={event} fetchDirections={fetchDirections} classifications={classifications}/>}
          
          {event && (
           <>
@@ -152,7 +177,7 @@ const MapData = () => {
        </div> 
 
        {
-            eventCheck === fun && <PlacesSearch event = {event} /> 
+            eventCheck === fun && <PlacesSearch event = {event} classifications={classifications} /> 
           }
     </div>
   )
