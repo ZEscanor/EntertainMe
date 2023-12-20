@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useCallback} from "react";
 
 import {GoogleMap,
     Marker,
@@ -10,7 +10,7 @@ import {GoogleMap,
 
 import Popout from "./Popout"
 
-const EventMarkers = ({ event, fetchDirections, classifications = "music"}) => {
+const EventMarkers = ({ event, fetchDirections, classifications = "music", setDateList}) => {
   const latlon = `${event.lat}` + "," + `${event.lng}`;
   const apikey = import.meta.env.VITE_TICKETMASTER_API_KEY;
   const url = `https://app.ticketmaster.com/discovery/v2/events?apikey=${apikey}&latlong=${latlon}&classificationName=${classifications}&size=60`;
@@ -20,7 +20,10 @@ const EventMarkers = ({ event, fetchDirections, classifications = "music"}) => {
   // classificationName= music
 const [venueEvents, setVenueEvents] = useState([]);
 const [modal, setModal]= useState(false);
+
   //console.log(url);
+
+  
 
   useEffect(() => {
     if(eventFilterer.length > 5){
@@ -62,7 +65,7 @@ const [modal, setModal]= useState(false);
     };
 
     fetchEvents();
-  }, [url,classifications]); // Add 'url' as a dependency to trigger the effect when 'url' changes
+  }, [url,classifications]); // Add 'url' as a dependency to trigger the effect when 'url' changes // Add 'url' as a dependency to trigger the effect when 'url' changes
 
   //console.log(eventFilterer);
 
@@ -79,6 +82,8 @@ const [modal, setModal]= useState(false);
         throw new Error("Network response not ok");
       }
       const data = await res.json();
+
+      
       //console.log("dataaaaa",data)
       // Assuming your API response structure has events in data._embedded.events
       const uniqueEventName = new Set();
@@ -111,12 +116,13 @@ const [modal, setModal]= useState(false);
   const closeModal = () => {
     setModal(null)
   }
-
+  const memoizedEventFilterer = useMemo(() => eventFilterer, [eventFilterer]);
+  const memoizedVenueEvents = useMemo(() => venueEvents, [venueEvents]);
   return (
 <>
   {/* {(clusterer) => ( */}
   <div>
-  {eventFilterer.map((area) => (
+  {memoizedEventFilterer.map((area) => (
     <Marker key={area.lat} 
     position={{lat: parseFloat(area._embedded.venues[0].location.latitude), lng:parseFloat(area._embedded.venues[0].location.longitude)}} 
     // clusterer={clusterer}
@@ -132,16 +138,16 @@ const [modal, setModal]= useState(false);
   <div>
   {selectedMarker && (
     <div className="eventFilter">
-      <h2>Events at {venueEvents[0]?._embedded.venues[0]?.name}</h2>
+      <h2>Events at {memoizedVenueEvents[0]?._embedded.venues[0]?.name}</h2>
       <ul>
-        {venueEvents.map((event) => (
+        {memoizedVenueEvents.map((event) => (
           <li key={event.id} className="liste">
              {/* <a href={event.url} target="_blank" rel="noopener noreferrer">
              
              
             
              </a> */}
-             {modal === event.id ? <Popout event={event}/> :<div  className="modal" onClick={()=>openModal(event.id)}>
+             {modal === event.id ? <Popout event={event} setDateList={setDateList} closeModal={closeModal}/> :<div  className="modal" onClick={()=>openModal(event.id)}>
              {event.name}
          
              </div>

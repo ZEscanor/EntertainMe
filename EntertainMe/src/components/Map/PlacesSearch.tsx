@@ -1,20 +1,39 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback, useRef} from 'react';
 
 type PlaceProps = {
   event:  google.maps.LatLngLiteral | undefined
   classifications: string | undefined
 };
 
+
+
+
 export default  function PlacesSearch({event, classifications="FUN"}:PlaceProps): JSX.Element {
+  //const mapp = document.querySelector('.map') as HTMLDivElement;
+  const mapRef = useRef<google.maps.Map | null>(null);
+  const performTextSearch = useCallback(
+    (placesSearch: google.maps.places.PlacesService, map: google.maps.Map, callback: any) => {
+      const request: google.maps.places.TextSearchRequest = {
+        location: map.getCenter(),
+        radius: 500,
+        query: classifications,
+      };
+
+      placesSearch.textSearch(request, callback);
+    },
+    [classifications]
+  );
+
 
   useEffect(() => {
-    const mapp = document.querySelector('.map') as HTMLDivElement | null;
-
+    const mapp = document.querySelector('.map') as HTMLDivElement;
+    
 
     console.log(event)
 
-    let map: google.maps.Map | null = null;
+    let map = mapRef.current
     let eventFired = false;
+    
 
     if (mapp !== null && event != undefined) {
       if(!map){
@@ -24,13 +43,13 @@ export default  function PlacesSearch({event, classifications="FUN"}:PlaceProps)
       });
     
      
-
       const listener = google.maps.event.addListener(map, 'idle', () => {
         if (!eventFired && map !== null) {
           eventFired = true;
 
           const placesSearch = new google.maps.places.PlacesService(map);
-          performTextSearch(placesSearch, map);
+          
+          performTextSearch(placesSearch, map, callback);
         }
 
         // Remove the listener to prevent further checks
@@ -38,6 +57,7 @@ export default  function PlacesSearch({event, classifications="FUN"}:PlaceProps)
           google.maps.event.removeListener(listener);
         }
       });
+   
     }
   }
     else{
@@ -48,15 +68,22 @@ export default  function PlacesSearch({event, classifications="FUN"}:PlaceProps)
       });
     }
 
-    function performTextSearch(placesSearch: google.maps.places.PlacesService, map: google.maps.Map) {
-      const request: google.maps.places.TextSearchRequest = {
-        location: map.getCenter(),
-        radius: 500,
-        query: classifications,
-      };
+    return () => {
+      // Clean up event listener if the component unmounts
+      if (map !== null) {
+        google.maps.event.clearListeners(map, 'idle');
+      }
+    };
 
-      placesSearch.textSearch(request, callback);
-    }
+    // function performTextSearch(placesSearch: google.maps.places.PlacesService, map: google.maps.Map) {
+    //   const request: google.maps.places.TextSearchRequest = {
+    //     location: map.getCenter(),
+    //     radius: 500,
+    //     query: classifications,
+    //   };
+
+    //   placesSearch.textSearch(request, callback);
+    // }
 
     function callback(results: google.maps.places.PlaceResult[], status: google.maps.places.PlacesServiceStatus) {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
@@ -72,15 +99,30 @@ export default  function PlacesSearch({event, classifications="FUN"}:PlaceProps)
           const additionalContent = `<div style="color: black "><strong>Name:</strong> ${results[i].name}</div>
           <div style = "color: black "><strong>Address:</strong> ${results[i].formatted_address}</div>
           <div style = "color: black "><strong>Type of Place:</strong> ${results[i].types[0].toUpperCase()}</div>
-          `;
+          <button id= addToMyListButton >Add to List</button>`;
           const infoWindow = new google.maps.InfoWindow({
             content: additionalContent // Use the location name as the content of the info window
           });
 
+          
+
           // Show the info window when the marker is hovered over
-          marker.addListener('click', () => {
-            infoWindow.open(map, marker);
+
+          infoWindow.addListener('domready', () => {
+            const addButton = document.getElementById('addToMyListButton');
+            addButton?.addEventListener('click', () => {
+              // Handle button click action here
+              const clickedLocation = results[i]; // Assuming 'i' is defined or calculated
+              //addToList(clickedLocation); // Call the addToList function with the clicked location
+              console.log("why",clickedLocation)
+            });
           });
+
+
+          marker.addListener('click', () => {
+            infoWindow.open(map, marker); 
+          });
+
 
           // Close the info window when the marker is no longer hovered over
           marker.addListener('closeclick', () => {
@@ -91,17 +133,27 @@ export default  function PlacesSearch({event, classifications="FUN"}:PlaceProps)
     }
 
 
-    // if (map !== null) {
-    //   new google.maps.Marker({
-    //     map: map,
-    //     position: position,
-    //     title: 'Uluru'
-    //   });
-    // }
-  
+    
+
+
   }, [event,classifications]);
 
-  return <div>
+
+
+
+
+
+
+return <div className='map'>
    
-  </div>;
+</div>;
 }
+
+
+
+  
+  
+
+
+
+       

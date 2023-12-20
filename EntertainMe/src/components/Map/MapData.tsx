@@ -37,6 +37,7 @@ const MapData = () => {
   const [directionFromMap, setDirectionsFromMap] = useState<DirectionsResult | null>(null);
   const [eventCheck, setEventCheck] = useState<string>("")
   const [classifications, setClassifications] = useState<string>("music")
+  const [dateList, setDateList] = useState([])
   //const [eventsNearLocation, setEventNearLocation] = useState<LatLngLiteral>();
   const mapRef = useRef<GoogleMap>();
   const centerer = useMemo<LatLngLiteral>(() => ({
@@ -80,6 +81,7 @@ const MapData = () => {
       switch(passed){
         case entertainment:
           setEventCheck(entertainment);
+          console.log(dateList,"date")
           break;
         case fun:
           setEventCheck(fun);
@@ -141,7 +143,7 @@ const MapData = () => {
        </div>
      
         <div className='map'>
-        {eventCheck === entertainment ? ( 
+        {eventCheck === entertainment || eventCheck === "" ? ( 
         <GoogleMap
         zoom={10}
         center={centerer}
@@ -163,7 +165,7 @@ const MapData = () => {
 
           
 
-          {event && <EventMarkers event={event} fetchDirections={fetchDirections} classifications={classifications}/>}
+          {event && <EventMarkers event={event} fetchDirections={fetchDirections} classifications={classifications} setDateList={setDateList}/>}
          
          {event && (
           <>

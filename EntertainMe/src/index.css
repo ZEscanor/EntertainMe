@@ -88,7 +88,7 @@ button:focus-visible {
   height: 100vh;
 }
 .map{
-  width: 100%;
+  width: 500px;
   height: 100vh;
 }
 .eventFilter {
@@ -165,5 +165,12 @@ button:focus-visible {
   display: none;
 }
 .modal{
+
+}
+.ok{
+  background-color: #f00;
+}
+.Middle{
   display: flex;
+  flex-direction: row;
 }
