@@ -20,6 +20,7 @@ function App() {
     // <ApolloProvider client={client}>
     
     <div>
+      <div className='Middle'>
       <Navbar/>
     
       
@@ -30,6 +31,12 @@ function App() {
    <Map/>
     {/* </ApolloProvider> */}
     </div>
+
+    <div className='ok'>
+         kokokok
+    </div>
+    </div>
+
   )
 }
 

@@ -27,3 +27,13 @@ const generateDummyData = (position: LatLngLiteral) =>{
     }
     return _areas
 };
+
+
+// To DO List
+  -Sunday: Make Data more reliable, Fix bugs add one new "Map Component"
+  -Monday or Next: Finish implementing above start with "AI" work.
+  -Next Day - incorporate a text api to "TEXT" the perfect date plan
+  -Potentially add things like movie apis stuff like that
+  -style and deploy Version 1
+
+  Complete
