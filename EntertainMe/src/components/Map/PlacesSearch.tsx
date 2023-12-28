@@ -65,6 +65,8 @@ export default  function PlacesSearch({event, classifications="FUN"}:PlaceProps)
         center: {lat: 41.8781136 , lng: -87.6297982
         },
         zoom: 15,
+        
+        
       });
     }
 
@@ -148,12 +150,3 @@ return <div className='map'>
    
 </div>;
 }
-
-
-
-  
-  
-
-
-
-       
