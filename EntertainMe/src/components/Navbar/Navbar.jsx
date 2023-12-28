@@ -9,15 +9,15 @@ const Navbar = () => {
     <div className='navbar-container'>
 
       <ul  className='innerNav'>
-        <li>
-             Food & Fun
+        <li style={{marginRight: "50px"}}>
+             Home
         </li>
-        <li>
+        <li style={{marginRight: "50px"}} >
            Music & Arts Tickets
            
         </li>
-        <li>
-           Ask AI
+        <li >
+           Movie
            
         </li>
       </ul>

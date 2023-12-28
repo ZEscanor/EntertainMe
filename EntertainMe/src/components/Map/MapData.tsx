@@ -97,18 +97,11 @@ const MapData = () => {
     }
   return (
     <div className='contained'>
-       <div className='controlBar'>
-           <h1>Entertainment Hub</h1>
-           <Placer setEvent={(position)=>{
-            setEvent(position);
-            mapRef.current?.panTo(position)
-           }}
-           />
+      <div className='menuTab'>
 
-           {!event && <p>Enter The address</p>}
-           {/* {directionFromMap && <Distance leg={directionFromMap.routes[0].legs[0]}/>} */}
-         
-         <div className='bottomBar'  >
+
+
+      <div className='bottomBar'  >
           <div className={`Fun ${eventCheck === fun ? 'hidden' : ""}` } onClick={() =>handleClick(fun)}>
            Food & Fun
           
@@ -140,6 +133,19 @@ const MapData = () => {
  Guides
 </div>  
          </div>
+      </div>
+       <div className='controlBar'>
+           <h1>Entertainment Hub</h1>
+           <Placer setEvent={(position)=>{
+            setEvent(position);
+            mapRef.current?.panTo(position)
+           }}
+           />
+
+           {!event && <p>Enter The address</p>}
+           {/* {directionFromMap && <Distance leg={directionFromMap.routes[0].legs[0]}/>} */}
+         
+         
        </div>
      
         <div className='map'>
