@@ -147,7 +147,8 @@ const [modal, setModal]= useState(false);
              
             
              </a> */}
-             {modal === event.id ? <Popout event={event} setDateList={setDateList} closeModal={closeModal}/> :<div  className="modal" onClick={()=>openModal(event.id)}>
+             {modal === event.id ? <Popout event={event} setDateList={setDateList} closeModal={closeModal}/> :
+             <div  className="modal" onClick={()=>openModal(event.id)}>
              {event.name}
          
              </div>

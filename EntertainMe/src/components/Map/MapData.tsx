@@ -134,6 +134,13 @@ const MapData = () => {
 </div>  
          </div>
       </div>
+      {dateList.length > 0 ? (
+        <div className='bottomBar'>
+          {dateList.map((date: object)=>(
+            <p>{date?.name}</p>
+          ))}
+        </div>
+      ): null}
        <div className='controlBar'>
            <h1>Entertainment Hub</h1>
            <Placer setEvent={(position)=>{
@@ -142,7 +149,7 @@ const MapData = () => {
            }}
            />
 
-           {!event && <p>Enter The address</p>}
+           {!event && <p>Enter a location to search for nearby events</p>}
            {/* {directionFromMap && <Distance leg={directionFromMap.routes[0].legs[0]}/>} */}
          
          

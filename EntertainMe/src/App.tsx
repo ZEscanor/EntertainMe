@@ -21,7 +21,7 @@ function App() {
     
     <div>
       <div className='Middle'>
-      <Navbar/>
+      {/* <Navbar/> */}
     
       
      {/* <div className="card">
@@ -32,9 +32,9 @@ function App() {
     {/* </ApolloProvider> */}
     </div>
 
-    <div className='ok'>
+    {/* <div className='ok'>
          kokokok
-    </div>
+    </div> */}
     </div>
 
   )

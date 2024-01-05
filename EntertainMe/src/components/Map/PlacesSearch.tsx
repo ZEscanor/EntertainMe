@@ -101,7 +101,8 @@ export default  function PlacesSearch({event, classifications="FUN"}:PlaceProps)
           const additionalContent = `<div style="color: black "><strong>Name:</strong> ${results[i].name}</div>
           <div style = "color: black "><strong>Address:</strong> ${results[i].formatted_address}</div>
           <div style = "color: black "><strong>Type of Place:</strong> ${results[i].types[0].toUpperCase()}</div>
-          <button id= addToMyListButton >Add to List</button>`;
+          `;
+          // <button id= addToMyListButton >Add to List</button>
           const infoWindow = new google.maps.InfoWindow({
             content: additionalContent // Use the location name as the content of the info window
           });
@@ -110,15 +111,15 @@ export default  function PlacesSearch({event, classifications="FUN"}:PlaceProps)
 
           // Show the info window when the marker is hovered over
 
-          infoWindow.addListener('domready', () => {
-            const addButton = document.getElementById('addToMyListButton');
-            addButton?.addEventListener('click', () => {
-              // Handle button click action here
-              const clickedLocation = results[i]; // Assuming 'i' is defined or calculated
-              //addToList(clickedLocation); // Call the addToList function with the clicked location
-              console.log("why",clickedLocation)
-            });
-          });
+          // infoWindow.addListener('domready', () => {
+          //   const addButton = document.getElementById('addToMyListButton');
+          //   addButton?.addEventListener('click', () => {
+          //     // Handle button click action here
+          //     const clickedLocation = results[i]; // Assuming 'i' is defined or calculated
+          //     //addToList(clickedLocation); // Call the addToList function with the clicked location
+          //     console.log("why",clickedLocation)
+          //   });
+          // });
 
 
           marker.addListener('click', () => {
