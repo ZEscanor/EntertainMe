@@ -57,7 +57,7 @@ const MapData = () => {
 
 
     const fetchDirections = (area: LatLngLiteral) => {
-      console.log(area, event, "the fetch directions function", infoWindow)
+     // console.log(area, event, "the fetch directions function", infoWindow)
       if(!event) return;
        
       const directionService = new google.maps.DirectionsService(); // Create a new instance of directions service
@@ -81,7 +81,7 @@ const MapData = () => {
       switch(passed){
         case entertainment:
           setEventCheck(entertainment);
-          console.log(dateList,"date")
+         // console.log(dateList,"date")
           break;
         case fun:
           setEventCheck(fun);
@@ -129,20 +129,28 @@ const MapData = () => {
     <p onClick={() =>handleClassSet(Sports)}>Sports</p>
   </div>
 ) : null}
-<div className='askAi'>
+{/* <div className='askAi'>
  Guides
-</div>  
+</div>   */}
          </div>
       </div>
+      {dateList.length > 0 ? (
+        <div className='bottomBar'>
+          {dateList.map((date: object)=>(
+            <p>{date?.name}</p>
+          ))}
+        </div>
+      ): null}
        <div className='controlBar'>
            <h1>Entertainment Hub</h1>
            <Placer setEvent={(position)=>{
             setEvent(position);
             mapRef.current?.panTo(position)
            }}
+           
            />
 
-           {!event && <p>Enter The address</p>}
+           {!event && <p className='locale'>Enter a location to search for nearby events</p>}
            {/* {directionFromMap && <Distance leg={directionFromMap.routes[0].legs[0]}/>} */}
          
          
