@@ -79,7 +79,7 @@ function ApolloData() {
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error </p>;
-    if(data) console.log(data, "data from apollo data")
+    if(data) //console.log(data, "data from apollo data")
 
  
   return (

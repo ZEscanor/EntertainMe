@@ -29,7 +29,7 @@ export default  function PlacesSearch({event, classifications="FUN"}:PlaceProps)
     const mapp = document.querySelector('.map') as HTMLDivElement;
     
 
-    console.log(event)
+    //console.log(event)
 
     let map = mapRef.current
     let eventFired = false;

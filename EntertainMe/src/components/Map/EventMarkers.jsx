@@ -41,7 +41,7 @@ const [modal, setModal]= useState(false);
         }
 
         const data = await res.json();
-        console.log(data, "our data")
+        //console.log(data, "our data")
         const uniqueEventName = new Set();
         const uniqueEvents = [];
 
@@ -73,7 +73,7 @@ const [modal, setModal]= useState(false);
     setSelectedMarker(null)
     setSelectedMarker(area);
     setVenueEvents([])
-    console.log(eventFilterer, venueEvents,'area')
+    //console.log(eventFilterer, venueEvents,'area')
     try {
       // Fetch events for the selected venue (you may need to customize the URL)
       const venueEventsUrl = `https://app.ticketmaster.com/discovery/v2/events?apikey=${apikey}&venueId=${area}&classificationName=${classifications}`;
