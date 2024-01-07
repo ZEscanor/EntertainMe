@@ -1,6 +1,26 @@
 import React, { useState } from 'react'
 
-const Popout: React.FC = ({event, setDateList, closeModal}) => {
+
+interface PopoutProps {
+  event: {
+    name: string;
+    priceRanges: {
+      min: number;
+      max: number;
+    }[];
+    _embedded: {
+      venues: {
+        name: string;
+      }[];
+    };
+    url: string;
+    // Add any other properties your 'event' object might have
+  };
+  setDateList: (entry: object) => void; // Adjust this type according to setDateList function
+  closeModal: () => void; // Adjust this type according to closeModal function
+}
+
+const Popout: React.FC<PopoutProps> = ({event, setDateList, closeModal}) => {
   
   
 

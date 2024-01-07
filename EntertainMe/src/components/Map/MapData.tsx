@@ -1,13 +1,13 @@
 import {useMemo, useState, useCallback, useRef} from 'react';
 import {GoogleMap,
     Marker,
-    DirectionsRenderer,
-    Circle,
-    MarkerClusterer,
+    // DirectionsRenderer,
+    // Circle,
+    // MarkerClusterer,
 
 } from "@react-google-maps/api";
 import Placer from './Placer';
-import Distance from "./DistanceCalculator";
+//import Distance from "./DistanceCalculator";
 import EventMarkers from "./EventMarkers.jsx";
 import PlacesSearch from "./PlacesSearch.tsx"; 
 
@@ -134,13 +134,13 @@ const MapData = () => {
 </div>   */}
          </div>
       </div>
-      {dateList.length > 0 ? (
+      {/* {dateList.length > 0 ? (
         <div className='bottomBar'>
           {dateList.map((date: object)=>(
             <p>{date?.name}</p>
           ))}
         </div>
-      ): null}
+      ): null} */}
        <div className='controlBar'>
            <h1>Entertainment Hub</h1>
            <Placer setEvent={(position)=>{
