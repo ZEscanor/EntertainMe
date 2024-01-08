@@ -11,7 +11,6 @@ article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup, 
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
-	margin: 0;
 	padding: 0;
 	border: 0;
 	font-size: 100%;
@@ -150,6 +149,13 @@ button:focus-visible {
   padding: 10px;
   box-shadow: 0px -5px 10px rgba(0, 0, 0, 0.2);
   color: #1a1a1a;
+  
+}
+.eventFilter h2{
+  margin-bottom: 10px;
+  font-size: 20px;
+  color: #f00;
+  font-weight: bold;
 }
 .suggestions {
   background-color: white;
@@ -222,6 +228,8 @@ button:focus-visible {
 }
 .modal{
   display: flex;
+  font-weight: bold;
+  justify-content: center;
 
 }
 
@@ -231,6 +239,7 @@ button:focus-visible {
 
 .popout h1,p{
   margin: 10px;
+ 
 }
 .ok{
   background-color: #f00;

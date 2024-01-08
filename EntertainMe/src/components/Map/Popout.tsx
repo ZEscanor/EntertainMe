@@ -34,12 +34,14 @@ const Popout: React.FC<PopoutProps> = ({event, setDateList, closeModal}) => {
      
         <li  >
           
-        <h1 >Details for {event.name}</h1>
-        <p>Tickets Price - {`Min : ${event.priceRanges[0].min}, Max:${event.priceRanges[0].max}  `}</p>
+        <h1 > {event.name}</h1>
+        <p>Tickets Price - {`$${event.priceRanges[0].min} - $${event.priceRanges[0].max}  `}</p>
         <p>Venue: {event._embedded.venues[0].name} </p>
         <p>Dates {event.name}</p>
-        <p>URL - {event.url}</p>
-        <p>More Like {event.name}</p>
+        <p>URL - 
+          
+          <a href={event.url} target='blank'>{event.url}</a></p>
+        {/* <p>More Like {event.name}</p> */}
         {/* <button onClick={() => setDateList(event)}>Click to Add to List</button> */}
         <button onClick={closeModal}>X</button>
         </li>
