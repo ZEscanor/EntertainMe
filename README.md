@@ -16,8 +16,13 @@ The Dark Map searches for Entertainment events like Music, Arts and Sports.
 
 
 -- Features coming soon
-  Allow the users to add an event to a list that will create a "itinerary" for the perfect day of events.
+
+Allow the users to add an event to a list that will create a "itinerary" for the perfect day of events.
+
   Allow users to click a button that will send a text/email to them of all the relevant locations on their itinerary
+  
   Allow Auth/Login features to save information to a User account.
+  
   Add a paid version for AI that will suggest locations and create the perfect "Date" plan
+  
   Pagination for events.
