@@ -1,4 +1,4 @@
-import {useMemo, useState, useCallback, useRef} from 'react';
+import {useMemo, useState, useCallback, useRef, useEffect} from 'react';
 import {GoogleMap,
     Marker,
     // DirectionsRenderer,
@@ -19,6 +19,7 @@ const Restaurants = "restaurants"
 const Music = "music"
 const Sports = "sports"
 const Arts = "arts"
+const itinerary = 'itinerary'
 
 
 type LatLngLiteral = google.maps.LatLngLiteral;
@@ -52,7 +53,7 @@ const MapData = () => {
 
 
     const infoWindow = useMemo<InfoWindow>   // an info window is a popup that could appear when a place is hovered/moused over
-    const onLoad = useCallback((map) => (mapRef.current = map), []);
+    const onLoad = useCallback((map) => (mapRef.current, map), []);
    
 
 
@@ -95,6 +96,17 @@ const MapData = () => {
     const handleClassSet = (passed:string) => {
       setClassifications(passed);
     }
+
+    const updateDates = (newDate) => {
+      setDateList((prevDates) =>{
+      
+       const updatedDateList = [...prevDates, newDate];
+      console.log(updatedDateList, 'dateList');
+      return updatedDateList
+    });
+  };
+
+    
   return (
     <div className='contained'>
       <div className='menuTab'>
@@ -134,13 +146,13 @@ const MapData = () => {
 </div>   */}
          </div>
       </div>
-      {/* {dateList.length > 0 ? (
+      {dateList.length > 0 ? (
         <div className='bottomBar'>
           {dateList.map((date: object)=>(
             <p>{date?.name}</p>
           ))}
         </div>
-      ): null} */}
+      ): null}
        <div className='controlBar'>
            <h1>Entertainment Hub</h1>
            <Placer setEvent={(position)=>{
@@ -179,7 +191,7 @@ const MapData = () => {
 
           
 
-          {event && <EventMarkers event={event} fetchDirections={fetchDirections} classifications={classifications} setDateList={setDateList}/>}
+          {event && <EventMarkers event={event} fetchDirections={fetchDirections} classifications={classifications} updateDates={updateDates}/>}
          
          {event && (
           <>
@@ -193,7 +205,13 @@ const MapData = () => {
        </div> 
 
        {
-            eventCheck === fun && <PlacesSearch event = {event} classifications={classifications} /> 
+            eventCheck === fun && <PlacesSearch event = {event} classifications={classifications} updateDates= {updateDates} /> 
+          }
+
+
+      
+{
+            eventCheck === itinerary && <PlacesSearch event = {event} classifications={classifications} updateDates= {updateDates} /> 
           }
     </div>
   )

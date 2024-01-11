@@ -10,7 +10,7 @@ import {
 
 import Popout from "./Popout"
 
-const EventMarkers = ({ event, fetchDirections, classifications = "music", setDateList}) => {
+const EventMarkers = ({ event, fetchDirections, classifications = "music", updateDates}) => {
   const latlon = `${event.lat}` + "," + `${event.lng}`;
   const apikey = import.meta.env.VITE_TICKETMASTER_API_KEY;
   const url = `https://app.ticketmaster.com/discovery/v2/events?apikey=${apikey}&latlong=${latlon}&classificationName=${classifications}&size=60`;
@@ -147,7 +147,7 @@ const [modal, setModal]= useState(false);
              
             
              </a> */}
-             {modal === event.id ? <Popout event={event} setDateList={setDateList} closeModal={closeModal}/> :
+             {modal === event.id ? <Popout event={event} updateDates={updateDates} closeModal={closeModal}/> :
              <div  className="modal" onClick={()=>openModal(event.id)}>
              {event.name}
          

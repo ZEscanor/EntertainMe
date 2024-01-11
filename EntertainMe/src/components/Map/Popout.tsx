@@ -16,17 +16,12 @@ interface PopoutProps {
     url: string;
     // Add any other properties your 'event' object might have
   };
-  setDateList: (entry: object) => void; // Adjust this type according to setDateList function
+  updateDates: (newDates: Record<string, any>) => void; // Adjust this type according to setDateList function
   closeModal: () => void; // Adjust this type according to closeModal function
 }
 
-const Popout: React.FC<PopoutProps> = ({event, setDateList, closeModal}) => {
+const Popout: React.FC<PopoutProps> = ({event, closeModal, updateDates}) => {
   
-  
-
-  const handleDate = (entry: object) => {
-      setDateList(entry)
-  }
  // console.log(event, "in popout")
 
   return (
@@ -42,7 +37,7 @@ const Popout: React.FC<PopoutProps> = ({event, setDateList, closeModal}) => {
           
           <a href={event.url} target='blank'>{event.url}</a></p>
         {/* <p>More Like {event.name}</p> */}
-        {/* <button onClick={() => setDateList(event)}>Click to Add to List</button> */}
+        <button onClick={()=>updateDates(event)}>Click to Add to List</button>
         <button onClick={closeModal}>X</button>
         </li>
    
