@@ -22,7 +22,7 @@ interface PopoutProps {
 
 const Popout: React.FC<PopoutProps> = ({event, closeModal, updateDates}) => {
   
-  console.log(event, "in popout")
+  //console.log(event, "in popout")
 
   return (
     <div className='popout'>

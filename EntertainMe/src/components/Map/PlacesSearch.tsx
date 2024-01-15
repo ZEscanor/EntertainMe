@@ -32,7 +32,7 @@ export default  function PlacesSearch({event, classifications="FUN", eventCheck,
     const mapp = document.querySelector('.map') as HTMLDivElement;
     
 
-    console.log(eventCheck)
+    //console.log(eventCheck)
 
     let map = mapRef.current
     let eventFired = false;
@@ -111,7 +111,7 @@ export default  function PlacesSearch({event, classifications="FUN", eventCheck,
               // Handle button click action here
               const clickedLocation = results[i]; // Assuming 'i' is defined or calculated
               //addToList(clickedLocation); // Call the addToList function with the clicked location
-              console.log("why",clickedLocation)
+              //console.log("why",clickedLocation)
               updateDates(clickedLocation)
             });
           });

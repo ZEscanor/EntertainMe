@@ -113,7 +113,7 @@ const MapData = () => {
       }
       else{
        const updatedDateList = [...prevDates, newDate];
-      console.log(updatedDateList, 'dateList');
+      //console.log(updatedDateList, 'dateList');
       return updatedDateList
       }
     });
