@@ -122,7 +122,7 @@ const [modal, setModal]= useState(false);
 <>
   {/* {(clusterer) => ( */}
   <div>
-  {memoizedEventFilterer.map((area) => (
+  {memoizedEventFilterer?.map((area) => (
     <Marker key={area.lat} 
     position={{lat: parseFloat(area._embedded.venues[0].location.latitude), lng:parseFloat(area._embedded.venues[0].location.longitude)}} 
     // clusterer={clusterer}
@@ -139,8 +139,9 @@ const [modal, setModal]= useState(false);
   {selectedMarker && (
     <div className="eventFilter">
       <h2>Events at {memoizedVenueEvents[0]?._embedded.venues[0]?.name}</h2>
+    
       <ul>
-        {memoizedVenueEvents.map((event) => (
+        {memoizedVenueEvents?.map((event) => (
           <li key={event.id} className="liste">
              {/* <a href={event.url} target="_blank" rel="noopener noreferrer">
              
@@ -158,7 +159,7 @@ const [modal, setModal]= useState(false);
           
         ))}
       </ul>
-     
+     <button onClick={()=> setSelectedMarker(null)}>X</button>
     </div>
   )}
 </div>

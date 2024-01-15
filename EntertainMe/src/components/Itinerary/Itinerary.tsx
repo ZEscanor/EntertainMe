@@ -10,13 +10,14 @@ const Itinerary:React.FC<ItinProps> = ({dateList}) => {
     <div>
         
         {dateList.length > 0 ? (
-        <div className='bottomBar'>
-          {dateList.map((date: object)=>(
+        <div className='itin'>
+          {dateList.map((date)=>(
             <p>{date?.name}</p>
           ))}
         </div>
-      ): null}
+      ): <div>No items, Add some locations to your list!</div>}
     </div>
+
   )
 }
 

@@ -4,12 +4,13 @@ type PlaceProps = {
   event:  google.maps.LatLngLiteral | undefined
   classifications: string | undefined
   updateDates: (newDates: Record<string,any>) => void;
+  eventCheck: string | undefined
 };
 
 
 
 
-export default  function PlacesSearch({event, classifications="FUN", updateDates}:PlaceProps ): JSX.Element {
+export default  function PlacesSearch({event, classifications="FUN", eventCheck, updateDates}:PlaceProps ): JSX.Element {
 
   const mapRef = useRef<google.maps.Map | null>(null);
   const performTextSearch = useCallback(
@@ -24,13 +25,14 @@ export default  function PlacesSearch({event, classifications="FUN", updateDates
     },
     [classifications]
   );
+ 
 
 
   useEffect(() => {
     const mapp = document.querySelector('.map') as HTMLDivElement;
     
 
-    //console.log(event)
+    console.log(eventCheck)
 
     let map = mapRef.current
     let eventFired = false;
@@ -140,7 +142,7 @@ export default  function PlacesSearch({event, classifications="FUN", updateDates
 
 
 
-return <div className='map'>
+return <div className= 'map' >
    
 </div>;
 }
