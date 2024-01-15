@@ -1,6 +1,6 @@
 import React, {useState,useEffect} from 'react';
 // import EventDetails from '../components/EventDetails';
-import EventCard from '../components/EventCard';
+import EventCard from '../components/graphql/EventCard';
 
 
 // Ticketmaster api important endpoints

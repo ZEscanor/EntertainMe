@@ -3,13 +3,15 @@ import React, { useEffect, useCallback, useRef} from 'react';
 type PlaceProps = {
   event:  google.maps.LatLngLiteral | undefined
   classifications: string | undefined
+  updateDates: (newDates: Record<string,any>) => void;
+  eventCheck: string | undefined
 };
 
 
 
 
-export default  function PlacesSearch({event, classifications="FUN"}:PlaceProps): JSX.Element {
-  //const mapp = document.querySelector('.map') as HTMLDivElement;
+export default  function PlacesSearch({event, classifications="FUN", eventCheck, updateDates}:PlaceProps ): JSX.Element {
+
   const mapRef = useRef<google.maps.Map | null>(null);
   const performTextSearch = useCallback(
     (placesSearch: google.maps.places.PlacesService, map: google.maps.Map, callback: any) => {
@@ -23,13 +25,14 @@ export default  function PlacesSearch({event, classifications="FUN"}:PlaceProps)
     },
     [classifications]
   );
+ 
 
 
   useEffect(() => {
     const mapp = document.querySelector('.map') as HTMLDivElement;
     
 
-    //console.log(event)
+    //console.log(eventCheck)
 
     let map = mapRef.current
     let eventFired = false;
@@ -77,16 +80,6 @@ export default  function PlacesSearch({event, classifications="FUN"}:PlaceProps)
       }
     };
 
-    // function performTextSearch(placesSearch: google.maps.places.PlacesService, map: google.maps.Map) {
-    //   const request: google.maps.places.TextSearchRequest = {
-    //     location: map.getCenter(),
-    //     radius: 500,
-    //     query: classifications,
-    //   };
-
-    //   placesSearch.textSearch(request, callback);
-    // }
-
     function callback(results: google.maps.places.PlaceResult[], status: google.maps.places.PlacesServiceStatus) {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         for (let i = 0; i < results.length; i++) {
@@ -101,25 +94,27 @@ export default  function PlacesSearch({event, classifications="FUN"}:PlaceProps)
           const additionalContent = `<div style="color: black "><strong>Name:</strong> ${results[i].name}</div>
           <div style = "color: black "><strong>Address:</strong> ${results[i].formatted_address}</div>
           <div style = "color: black "><strong>Type of Place:</strong> ${results[i].types[0].toUpperCase()}</div>
+          <button id= addToMyListButton >Add to List</button>
           `;
-          // <button id= addToMyListButton >Add to List</button>
+           
           const infoWindow = new google.maps.InfoWindow({
             content: additionalContent // Use the location name as the content of the info window
           });
 
           
 
-          // Show the info window when the marker is hovered over
+          // Show the info window when the marker is clicked
 
-          // infoWindow.addListener('domready', () => {
-          //   const addButton = document.getElementById('addToMyListButton');
-          //   addButton?.addEventListener('click', () => {
-          //     // Handle button click action here
-          //     const clickedLocation = results[i]; // Assuming 'i' is defined or calculated
-          //     //addToList(clickedLocation); // Call the addToList function with the clicked location
-          //     console.log("why",clickedLocation)
-          //   });
-          // });
+          infoWindow.addListener('domready', () => {
+            const addButton = document.getElementById('addToMyListButton');
+            addButton?.addEventListener('click', () => {
+              // Handle button click action here
+              const clickedLocation = results[i]; // Assuming 'i' is defined or calculated
+              //addToList(clickedLocation); // Call the addToList function with the clicked location
+              //console.log("why",clickedLocation)
+              updateDates(clickedLocation)
+            });
+          });
 
 
           marker.addListener('click', () => {
@@ -147,7 +142,7 @@ export default  function PlacesSearch({event, classifications="FUN"}:PlaceProps)
 
 
 
-return <div className='map'>
+return <div className= 'map' >
    
 </div>;
 }

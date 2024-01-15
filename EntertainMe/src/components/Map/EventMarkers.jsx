@@ -10,7 +10,7 @@ import {
 
 import Popout from "./Popout"
 
-const EventMarkers = ({ event, fetchDirections, classifications = "music", setDateList}) => {
+const EventMarkers = ({ event, fetchDirections, classifications = "music", updateDates}) => {
   const latlon = `${event.lat}` + "," + `${event.lng}`;
   const apikey = import.meta.env.VITE_TICKETMASTER_API_KEY;
   const url = `https://app.ticketmaster.com/discovery/v2/events?apikey=${apikey}&latlong=${latlon}&classificationName=${classifications}&size=60`;
@@ -122,7 +122,7 @@ const [modal, setModal]= useState(false);
 <>
   {/* {(clusterer) => ( */}
   <div>
-  {memoizedEventFilterer.map((area) => (
+  {memoizedEventFilterer?.map((area) => (
     <Marker key={area.lat} 
     position={{lat: parseFloat(area._embedded.venues[0].location.latitude), lng:parseFloat(area._embedded.venues[0].location.longitude)}} 
     // clusterer={clusterer}
@@ -139,15 +139,16 @@ const [modal, setModal]= useState(false);
   {selectedMarker && (
     <div className="eventFilter">
       <h2>Events at {memoizedVenueEvents[0]?._embedded.venues[0]?.name}</h2>
+    
       <ul>
-        {memoizedVenueEvents.map((event) => (
+        {memoizedVenueEvents?.map((event) => (
           <li key={event.id} className="liste">
              {/* <a href={event.url} target="_blank" rel="noopener noreferrer">
              
              
             
              </a> */}
-             {modal === event.id ? <Popout event={event} setDateList={setDateList} closeModal={closeModal}/> :
+             {modal === event.id ? <Popout event={event} updateDates={updateDates} closeModal={closeModal}/> :
              <div  className="modal" onClick={()=>openModal(event.id)}>
              {event.name}
          
@@ -158,7 +159,7 @@ const [modal, setModal]= useState(false);
           
         ))}
       </ul>
-     
+     <button onClick={()=> setSelectedMarker(null)}>X</button>
     </div>
   )}
 </div>

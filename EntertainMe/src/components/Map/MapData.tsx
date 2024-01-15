@@ -1,6 +1,7 @@
-import {useMemo, useState, useCallback, useRef} from 'react';
+import {useMemo, useState, useCallback, useRef, useEffect} from 'react';
 import {GoogleMap,
     Marker,
+    
     // DirectionsRenderer,
     // Circle,
     // MarkerClusterer,
@@ -10,6 +11,7 @@ import Placer from './Placer';
 //import Distance from "./DistanceCalculator";
 import EventMarkers from "./EventMarkers.jsx";
 import PlacesSearch from "./PlacesSearch.tsx"; 
+import Itinerary from '../Itinerary/Itinerary.tsx';
 
 
 const entertainment = "entertainment"
@@ -19,6 +21,7 @@ const Restaurants = "restaurants"
 const Music = "music"
 const Sports = "sports"
 const Arts = "arts"
+const itinerary = 'itinerary'
 
 
 type LatLngLiteral = google.maps.LatLngLiteral;
@@ -35,7 +38,7 @@ const MapData = () => {
   
   const [event,setEvent] = useState<LatLngLiteral>();
   const [directionFromMap, setDirectionsFromMap] = useState<DirectionsResult | null>(null);
-  const [eventCheck, setEventCheck] = useState<string>("")
+  const [eventCheck, setEventCheck] = useState<string>(null)
   const [classifications, setClassifications] = useState<string>("music")
   const [dateList, setDateList] = useState([])
   //const [eventsNearLocation, setEventNearLocation] = useState<LatLngLiteral>();
@@ -52,7 +55,7 @@ const MapData = () => {
 
 
     const infoWindow = useMemo<InfoWindow>   // an info window is a popup that could appear when a place is hovered/moused over
-    const onLoad = useCallback((map) => (mapRef.current = map), []);
+    const onLoad = useCallback((map) => (mapRef.current, map), []);
    
 
 
@@ -78,13 +81,19 @@ const MapData = () => {
     
 
     const handleClick = (passed:string) => {
+      setEventCheck(null)
       switch(passed){
         case entertainment:
           setEventCheck(entertainment);
+          setClassifications(Music)
          // console.log(dateList,"date")
           break;
         case fun:
           setEventCheck(fun);
+          setClassifications(bars)
+          break;
+        case itinerary:
+          setEventCheck(itinerary);
           break;
         default:
           console.log('no cases')
@@ -95,6 +104,23 @@ const MapData = () => {
     const handleClassSet = (passed:string) => {
       setClassifications(passed);
     }
+
+    const updateDates = (newDate) => {
+      setDateList((prevDates) =>{
+      if(prevDates?.includes(newDate)){
+        console.log("Sorry That event is already in the list")
+        return prevDates;
+      }
+      else{
+       const updatedDateList = [...prevDates, newDate];
+      //console.log(updatedDateList, 'dateList');
+      return updatedDateList
+      }
+    });
+    
+  };
+
+    
   return (
     <div className='contained'>
       <div className='menuTab'>
@@ -129,18 +155,12 @@ const MapData = () => {
     <p onClick={() =>handleClassSet(Sports)}>Sports</p>
   </div>
 ) : null}
-{/* <div className='askAi'>
- Guides
-</div>   */}
+<div className={`askAi ${eventCheck === itinerary ? 'hidden' : ""}` } onClick={() =>handleClick(itinerary)}>
+ Itinerary
+</div>  
          </div>
       </div>
-      {/* {dateList.length > 0 ? (
-        <div className='bottomBar'>
-          {dateList.map((date: object)=>(
-            <p>{date?.name}</p>
-          ))}
-        </div>
-      ): null} */}
+    
        <div className='controlBar'>
            <h1>Entertainment Hub</h1>
            <Placer setEvent={(position)=>{
@@ -152,15 +172,16 @@ const MapData = () => {
 
            {!event && <p className='locale'>Enter a location to search for nearby events</p>}
            {/* {directionFromMap && <Distance leg={directionFromMap.routes[0].legs[0]}/>} */}
+           {classifications && event && <p className='locale'>{` You selected the ${classifications.toUpperCase()} category`}</p>}
          
          
        </div>
      
-        <div className='map'>
-        {eventCheck === entertainment || eventCheck === "" ? ( 
+        <div className= {`map ${eventCheck === itinerary ? 'mapNone': "" }`}>
+        {eventCheck === entertainment || eventCheck === null ? ( 
         <GoogleMap
         zoom={10}
-        center={centerer}
+        center={event || centerer}
         mapContainerClassName='map-container'
         options={mapOptions}
         onLoad={onLoad}
@@ -179,21 +200,34 @@ const MapData = () => {
 
           
 
-          {event && <EventMarkers event={event} fetchDirections={fetchDirections} classifications={classifications} setDateList={setDateList}/>}
+          {event && <EventMarkers event={event} fetchDirections={fetchDirections} classifications={classifications} updateDates={updateDates}/>}
          
          {event && (
           <>
-         <Marker position={event}  />
-
+         <Marker position={event} 
+         icon={
+          {
+            path: 'M10 0C4.48 0 0 4.48 0 10s10 26 10 26 10-21.52 10-26S15.52 0 10 0zm0 14c-1.5 0-2.78-1.28-2.5-2.83 0-1.21.83-2.33 2.27-3.42.94-.69 2.02-1.5 2.02-2.84 0-1.52-1.45-2.78-2.5-2.78s-2.5 1.26-2.5 2.78H5c0 3.14 2.03 5.85 5 6.77 1.73.54 3 1.92 3 3.62v1.62h2v-1.64c0-1.7 1.27-3.08 3-3.62 2.97-.92 5-3.63 5-6.77h-2c0 1.52-1.45 2.78-2.5 2.78z',
+      fillColor: 'blue', // Set the fill color to your desired color
+      fillOpacity: 1,
+      scale: 1.5, // Adjust the scale as needed
+          }
+        }
+         
+         />
+  
          </>
          
          )}  
         </GoogleMap>
         )  :( null )}
        </div> 
+       {eventCheck === fun && <PlacesSearch event={event} classifications={classifications} updateDates={updateDates} eventCheck={eventCheck} /> }
+      
 
-       {
-            eventCheck === fun && <PlacesSearch event = {event} classifications={classifications} /> 
+      
+{
+            eventCheck === itinerary && <Itinerary dateList = {dateList}/>
           }
     </div>
   )
