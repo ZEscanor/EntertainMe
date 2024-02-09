@@ -5,6 +5,7 @@
     "lib": ["ES2016", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
+    "esModuleInterop": true,
 
 
     /* Bundler mode */
@@ -33,6 +34,6 @@
   },
   "include": ["src",
     "src/components/Map/EventMarkers.jsx"
-],
+, "src/components/Itinerary/twilioConfig.jsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

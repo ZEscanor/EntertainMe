@@ -1,4 +1,6 @@
-import React from 'react'
+import React,{useState} from 'react';
+import TwilioMessaging from './twilioConfig.jsx'
+
 
 
 interface ItinProps {
@@ -6,6 +8,10 @@ interface ItinProps {
 }
 
 const Itinerary:React.FC<ItinProps> = ({dateList}) => {
+  // const [messageBody, setMessageBody] = useState({
+  //   from: ''
+  //   body: ''
+  // })
   return (
     <div>
         
@@ -16,6 +22,8 @@ const Itinerary:React.FC<ItinProps> = ({dateList}) => {
           ))}
         </div>
       ): <div>No items, Add some locations to your list!</div>}
+
+      {dateList.length> 0 && <TwilioMessaging/>}
     </div>
 
   )

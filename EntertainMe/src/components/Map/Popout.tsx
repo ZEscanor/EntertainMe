@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+
+
 
 
 interface PopoutProps {
@@ -17,7 +19,7 @@ interface PopoutProps {
     // Add any other properties your 'event' object might have
   };
   updateDates: (newDates: Record<string, any>) => void; // Adjust this type according to setDateList function
-  closeModal: () => void; // Adjust this type according to closeModal function
+  closeModal: (event: string) => void; // Adjust this type according to closeModal function
 }
 
 const Popout: React.FC<PopoutProps> = ({event, closeModal, updateDates}) => {
@@ -36,9 +38,9 @@ const Popout: React.FC<PopoutProps> = ({event, closeModal, updateDates}) => {
         <p>URL - <a href={event.url} target='blank'>{event.url}</a></p>
         <button onClick={() => {
           updateDates(event);
-          closeModal();
+          closeModal(event?.name);
         }}>Click to Add to List</button>
-        <button onClick={closeModal}>X</button>
+        <button onClick={() => closeModal(event?.name)}>X</button>
       </>
     ) : (
       <p>No event details available</p>
