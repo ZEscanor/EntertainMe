@@ -1,4 +1,4 @@
-// import { useState } from 'react'
+ import {ReactNode, useState } from 'react'
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
 // import GetEventData from './api/getEventData';
@@ -7,8 +7,23 @@
 import Map from './components/Map/Map';
 //import Navbar from './components/Navbar/Navbar.jsx';
 import './App.css';
+import { Route, Routes, Outlet, BrowserRouter } from 'react-router-dom';
+import { App as AntdApp } from "antd";
+import LandingPage from './pages/LandingPage';
 
-
+interface LayoutProps {
+  children?: ReactNode;
+}
+const Layout: React.FC<LayoutProps> = ({ children }) => {
+  return (
+    <div>
+      <LandingPage /> {/* Render the LandingPage as the header */}
+      <div className="content">
+        {children} {/* Render child routes/content */}
+      </div>
+    </div>
+  );
+};
 function App() {
   //const [count, setCount] = useState(0)
   // const client = new ApolloClient({
@@ -18,9 +33,18 @@ function App() {
 
   return (
     // <ApolloProvider client={client}>
-    
-    <div>
-      <div className='Middle'>
+    <AntdApp>
+    <BrowserRouter>
+    <Routes>
+      
+   
+      
+      <Route index element={<LandingPage/>}/>
+      
+      <Route path='/map' element={<Map/>}/>
+
+
+      
       {/* <Navbar/> */}
     
       
@@ -28,14 +52,14 @@ function App() {
         <ApolloData />
    </div> */}
    {/* <GetEventData /> */}
-   <Map/>
     {/* </ApolloProvider> */}
-    </div>
 
+    </Routes>
     {/* <div className='ok'>
          kokokok
     </div> */}
-    </div>
+    </BrowserRouter>
+    </AntdApp>
 
   )
 }
