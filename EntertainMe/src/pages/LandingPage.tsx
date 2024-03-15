@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { PropsWithChildren, useState } from 'react';
 import { Layout, Menu, Breadcrumb } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Map from '../components/Map/Map';
+import Itinerary from '../components/Itinerary/Itinerary';
 
 
 const { Header, Content, Sider } = Layout;
@@ -25,7 +26,15 @@ const items2: MenuItem[] = [
   { label: 'Itinerary', key: 'sub3', icon: <UserOutlined />, href: '/itinerary' },
 ];
 
-const LandingPage: React.FC = () => {
+const LandingPage: React.FC<PropsWithChildren<{}>> = ({children}) => {
+
+  const location = useLocation();
+  const [dateList, setDateList] = useState([])
+
+  const isMapRoute = location.pathname === '/map'
+  const itinRoute = location.pathname === '/itinerary'
+
+
   return (
     <Layout>
       <Header style={{ display: 'flex', alignItems: 'center' }}>
@@ -51,7 +60,8 @@ const LandingPage: React.FC = () => {
         <Layout style={{ padding: '0 24px 24px' }}>
          
           <Content style={{ padding: 24, margin: 0, minHeight: 280 }}>
-            <Map/>
+            {isMapRoute && <Map/>}
+           
           </Content>
         </Layout>
       </Layout>

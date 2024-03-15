@@ -116,7 +116,12 @@ const [modal, setModal]= useState(false);
   }
   const closeModal = (event) => {
     setModal(null)
+    if(event == null){
+      return
+    }
+    else {
     toast(`Added ${event} to the list`)
+    }
   }
   const memoizedEventFilterer = useMemo(() => eventFilterer, [eventFilterer]);
   const memoizedVenueEvents = useMemo(() => venueEvents, [venueEvents]);

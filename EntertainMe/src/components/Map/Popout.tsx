@@ -40,7 +40,7 @@ const Popout: React.FC<PopoutProps> = ({event, closeModal, updateDates}) => {
           updateDates(event);
           closeModal(event?.name);
         }}>Click to Add to List</button>
-        <button onClick={() => closeModal(event?.name)}>X</button>
+        <button onClick={() => closeModal(null)}>X</button>
       </>
     ) : (
       <p>No event details available</p>

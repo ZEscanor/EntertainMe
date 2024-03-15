@@ -17,7 +17,7 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div>
-      <LandingPage /> {/* Render the LandingPage as the header */}
+   {/* Render the LandingPage as the header */}
       <div className="content">
         {children} {/* Render child routes/content */}
       </div>
@@ -38,12 +38,15 @@ function App() {
     <Routes>
       
    
+      <Route  element={<LandingPage/>}>
+        {/* <Route index element={<LandingPage/>}/> */}
+      <Route path="/map" element={<Map/>}/>
+                    
+                    
+                
+      </Route>
       
-      <Route index element={<LandingPage/>}/>
-      
-      <Route path='/map' element={<Map/>}/>
-
-
+      <Route path="*" element={<LandingPage />} />
       
       {/* <Navbar/> */}
     

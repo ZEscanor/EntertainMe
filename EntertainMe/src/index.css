@@ -142,6 +142,9 @@ button:focus-visible {
   color: #f00;
   font-weight: bold;
 }
+.eventFilter button{
+  color: red;
+}
 .suggestions {
   background-color: white;
   padding-left:  0px;
@@ -228,6 +231,8 @@ button:focus-visible {
 }
 .popout button{
   margin-right: 10px;
+  color: #f00;
+  background-color: #213547;
 }
 .ok{
   background-color: #f00;
