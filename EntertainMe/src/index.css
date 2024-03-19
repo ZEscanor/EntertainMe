@@ -74,12 +74,14 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: white;
+  border-color: black;
   cursor: pointer;
   transition: border-color 0.25s;
 }
 button:hover {
   border-color: #646cff;
+  background-color: #333;
 }
 button:focus,
 button:focus-visible {
@@ -147,6 +149,7 @@ button:focus-visible {
 }
 .suggestions {
   background-color: white;
+  color: black;
   padding-left:  0px;
   list-style-type: none;
   margin-top: 20px;
@@ -162,8 +165,8 @@ button:focus-visible {
   margin-bottom: 10px;
 }
 .liste:hover{
-  background-color: #f0f0f0; /* Background color on hover */
-  color: #333;
+  background-color: tan; /* Background color on hover */
+  color: red;
   cursor: pointer;
 }
 .comboboxInput{
@@ -213,6 +216,11 @@ button:focus-visible {
 }
 .hidden {
   display: none;
+}
+
+.active {
+  background-color: #f0f0f0; /* Example background color for highlighting */
+  color: #333; /* Example text color */
 }
 .modal{
   display: flex;

@@ -10,6 +10,7 @@ import {
 import { ToastContainer,  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Popout from "./Popout"
+import { Modal } from "antd";
 
 const EventMarkers = ({ event, fetchDirections, classifications = "music", updateDates}) => {
   const latlon = `${event.lat}` + "," + `${event.lng}`;
@@ -156,12 +157,26 @@ const [modal, setModal]= useState(false);
              
             
              </a> */}
-             {modal === event.id ? <Popout event={event} updateDates={updateDates} closeModal={closeModal}/> :
-             <div  className="modal" onClick={()=>openModal(event.id)}>
+             {/* {modal === event.id ? (
+             
+             <Modal
+             <Popout event={event} updateDates={updateDates} closeModal={closeModal}/>
+             <Modal/> ):(
+             <div   onClick={()=>openModal(event.id)}>
              {event.name}
          
              </div>
-                  } 
+             )
+                  }  */}
+                  {modal === event.id ? (
+
+    <Popout event={event} updateDates={updateDates} closeModal={closeModal} modal={modal} />
+
+) : (
+  <div onClick={() => openModal(event.id)}>
+    {event.name}
+  </div>
+)}
            
           </li>
           

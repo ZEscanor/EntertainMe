@@ -103,6 +103,10 @@ const MapData = () => {
 
     const handleClassSet = (passed:string) => {
       setClassifications(passed);
+
+     
+
+
     }
 
     const updateDates = (newDate) => {
