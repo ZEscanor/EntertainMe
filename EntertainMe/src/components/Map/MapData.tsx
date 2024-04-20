@@ -12,6 +12,7 @@ import Placer from './Placer';
 import EventMarkers from "./EventMarkers.jsx";
 import PlacesSearch from "./PlacesSearch.tsx"; 
 import Itinerary from '../Itinerary/Itinerary.tsx';
+import { ToastContainer,toast } from 'react-toastify';
 
 
 const entertainment = "entertainment"
@@ -112,12 +113,14 @@ const MapData = () => {
     const updateDates = (newDate) => {
       setDateList((prevDates) =>{
       if(prevDates?.includes(newDate)){
-        console.log("Sorry That event is already in the list")
+     
         return prevDates;
       }
       else{
+       
        const updatedDateList = [...prevDates, newDate];
-      //console.log(updatedDateList, 'dateList');
+      
+      
       return updatedDateList
       }
     });
@@ -233,6 +236,20 @@ const MapData = () => {
 {
             eventCheck === itinerary && <Itinerary dateList = {dateList}/>
           }
+
+<ToastContainer
+position="top-center"
+autoClose={3000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="light"
+
+/>
     </div>
   )
 }

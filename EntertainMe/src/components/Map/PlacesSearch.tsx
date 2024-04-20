@@ -43,6 +43,7 @@ export default  function PlacesSearch({event, classifications="FUN", eventCheck,
       map = new google.maps.Map(mapp, {
         center: event,
         zoom: 11,
+        mapId: "DEMO_MAP_ID"
       });
     
      
@@ -68,6 +69,7 @@ export default  function PlacesSearch({event, classifications="FUN", eventCheck,
         center: {lat: 41.8781136 , lng: -87.6297982
         },
         zoom: 15,
+        mapId: "DEMO_MAP_ID"
         
         
       });
@@ -91,10 +93,16 @@ export default  function PlacesSearch({event, classifications="FUN", eventCheck,
            ,
            title: results[i].name
           })
+
+        //   const marker = new google.maps.marker.AdvancedMarkerElement({
+        //     map: map,
+        //     position: results[i].geometry?.location,
+        //     title: results[i].name
+        // });
           const additionalContent = `<div style="color: black "><strong>Name:</strong> ${results[i].name}</div>
           <div style = "color: black "><strong>Address:</strong> ${results[i].formatted_address}</div>
           <div style = "color: black "><strong>Type of Place:</strong> ${results[i].types[0].toUpperCase()}</div>
-          <button id= addToMyListButton >Add to List</button>
+          <button id= addToMyListButton >More Info</button>
           `;
            
           const infoWindow = new google.maps.InfoWindow({

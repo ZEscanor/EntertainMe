@@ -15,6 +15,8 @@
     "@twilio-labs/serverless-runtime-types": "^1.1.8",
     "antd": "^5.15.2",
     "esm": "^3.2.25",
+    "firebase": "^10.10.0",
+    "firebaseui": "^6.1.0",
     "latlon-geohash": "^2.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -23,6 +25,7 @@
     "use-places-autocomplete": "^4.0.1"
   },
   "devDependencies": {
+    "@types/google.maps": "^3.55.6",
     "@types/node": "^20.2.5",
     "@types/react": "^18.2.8",
     "@types/react-dom": "^18.0.11",
