@@ -5,9 +5,10 @@
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
  
+ const apikeyF = import.meta.env.GOOGLE_FIREBASE_API_KEY
     // Initialize Firebase
     const firebaseConfig = {
-      apiKey: import.meta.env.GOOGLE_FIREBASE_API_KEY ,
+      apiKey: "AIzaSyC7lrzJz8lTKwAAcSQE90pjOoUgBuExhA0" ,
       authDomain: "entertainme-399518.firebaseapp.com",
       projectId: "entertainme-399518",
       storageBucket: "entertainme-399518.appspot.com",
