@@ -20,11 +20,28 @@ const Login = () => {
 
   const [userLoggedIn, setUserLoggedIn] = useState(false)
     const [userfromGoogle, setUserFromGoogle] = useState(null)
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
     const [isSigningIn, setisSigningIn] = useState('')
     const [error, setError] = useState('')
     const [isSigningUp, setisSigningUp] = useState('')
+    const [formData, setFormData] = useState({
+    user: {
+      name: '',
+      password: '',
+    },
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      user: {
+        ...prevFormData.user,
+        [name]: value,
+      },
+    }));
+  };
+
+
     const navigate = useNavigate();
 
 
@@ -47,6 +64,22 @@ const logout = () => {
             await signInWithEmailandPass(email,password)
         }
     }
+
+
+    const  onFinish = async (values) => {
+      console.log('Success:', values.user);
+      let user = values.user
+      let result = await signInWithEmailandPass(user.name,user.password)
+      if (result.success) {
+        console.log(`Welcome, ${JSON.stringify(result.user)}!`);
+        // Redirect to a different page or update UI
+      } else {
+        console.log(`Error: ${result.errorMessage}`);
+      }
+    };
+    const onFinishFailed = (errorInfo) => {
+      console.log('Failed:', errorInfo);
+    };
     const handleGoogleSignIn = async (e) => {
       if (!isSigningIn) {
           setisSigningIn(true);
@@ -74,6 +107,8 @@ const logout = () => {
       
     if(even == "SignIn"){
       setisSigningUp(true)
+     // createUserWithEmailandPass("demodemo123@gmail.com", "demoDemo")
+
     }
 
 
@@ -106,7 +141,7 @@ const logout = () => {
   /> */}
   {error && <p>{error}</p>}
   <button type="submit" onClick={()=>handleClickevent("SignIn")}>
-    {isSigningIn ? null : "SignIn" }
+    {isSigningIn ? "Sign IN": "Do it Coward"}
   </button>
  
   <button onClick={(e) => { e.preventDefault(); handleGoogleSignIn(); }} disabled={isSigningIn}>
@@ -115,30 +150,71 @@ const logout = () => {
   <p>Don't have an account? <Link to="/signup">Sign Up</Link></p>
 </Form>
 {isSigningUp ? (
-  <Form>
-       <Form.Item
-      name={['user', 'name']}
-      label="Name"
-      rules={[
-        {
-          required: true,
-        },
-      ]}
-    >
-      <Input />
-    </Form.Item>
-    <Form.Item
-      name={['user', 'password']}
-      label="password"
-      rules={[
-        {
-          required: true,
-        },
-      ]}
-    >
-      <Input />
-    </Form.Item>
-  </Form>
+  <div
+  style={{
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100vh',
+  }}
+  >
+  <Form 
+  labelCol={{
+    span: 8,
+  }}
+  wrapperCol={{
+    span: 16,
+  }}
+  style={{
+    maxWidth: 600,
+    width: '100%',
+  
+  }}
+  initialValues={{
+    remember: true,
+  }}
+  onFinish={onFinish}
+  onFinishFailed={onFinishFailed}
+  autoComplete="off"
+  
+  >
+  <Form.Item
+    name={['user', 'name']}
+    label="Name"
+    rules={[
+      {
+        required: true,
+      },
+    ]}
+  >
+    <Input
+      name="name"
+      value={formData.user.name}
+      onChange={handleInputChange}
+    />
+  </Form.Item>
+  <Form.Item
+    name={['user', 'password']}
+    label="Password"
+    rules={[
+      {
+        required: true,
+      },
+    ]}
+  >
+    <Input
+      name="password"
+      type="password"
+      value={formData.user.password}
+      onChange={handleInputChange}
+    />
+  </Form.Item>
+
+  <Button type="primary" htmlType="submit">
+        Submit
+      </Button>
+</Form>
+</div>
 ) : null}
     </div>
   )
@@ -150,86 +226,86 @@ export default Login
 
 
 
-const SignUpManually = () => {
+// const SignUpManually = () => {
 
-  const layout = {
-    labelCol: {
-      span: 8,
-    },
-    wrapperCol: {
-      span: 16,
-    },
-  };
+//   const layout = {
+//     labelCol: {
+//       span: 8,
+//     },
+//     wrapperCol: {
+//       span: 16,
+//     },
+//   };
 
-  const onFinish = (values) => {
-    console.log(values);
-  };
+//   const onFinish = (values) => {
+//     console.log(values);
+//   };
 
-  return (
-    <>
-   <Form
-    {...layout}
-    name="nest-messages"
-    onFinish={onFinish}
-    style={{
-      maxWidth: 600,
-    }}
-    // validateMessages={validateMessages}
-  >
-    <Form.Item
-      name={['user', 'name']}
-      label="Name"
-      rules={[
-        {
-          required: true,
-        },
-      ]}
-    >
-      <Input />
-    </Form.Item>
-    <Form.Item
-      name={['user', 'email']}
-      label="Email"
-      rules={[
-        {
-          type: 'email',
-        },
-      ]}
-    >
-      <Input />
-    </Form.Item>
+//   return (
+//     <>
+//    <Form
+//     {...layout}
+//     name="nest-messages"
+//     onFinish={onFinish}
+//     style={{
+//       maxWidth: 600,
+//     }}
+//     // validateMessages={validateMessages}
+//   >
+//     <Form.Item
+//       name={['user', 'name']}
+//       label="Name"
+//       rules={[
+//         {
+//           required: true,
+//         },
+//       ]}
+//     >
+//       <Input />
+//     </Form.Item>
+//     <Form.Item
+//       name={['user', 'email']}
+//       label="Email"
+//       rules={[
+//         {
+//           type: 'email',
+//         },
+//       ]}
+//     >
+//       <Input />
+//     </Form.Item>
   
-    <Form.Item
-      name={['user', 'age']}
-      label="Age"
-      rules={[
-        {
-          type: 'number',
-          min: 0,
-          max: 99,
-        },
-      ]}
-    >
-      <InputNumber />
-    </Form.Item>
-    <Form.Item name={['user', 'website']} label="Website">
-      <Input />
-    </Form.Item>
-    <Form.Item name={['user', 'introduction']} label="Introduction">
-      <Input.TextArea />
-    </Form.Item>
-    <Form.Item
-      wrapperCol={{
-        ...layout.wrapperCol,
-        offset: 8,
-      }}
-    >
-      <Button type="primary" htmlType="submit">
-        Submit
-      </Button>
-    </Form.Item>
-  </Form>
+//     <Form.Item
+//       name={['user', 'age']}
+//       label="Age"
+//       rules={[
+//         {
+//           type: 'number',
+//           min: 0,
+//           max: 99,
+//         },
+//       ]}
+//     >
+//       <InputNumber />
+//     </Form.Item>
+//     <Form.Item name={['user', 'website']} label="Website">
+//       <Input />
+//     </Form.Item>
+//     <Form.Item name={['user', 'introduction']} label="Introduction">
+//       <Input.TextArea />
+//     </Form.Item>
+//     <Form.Item
+//       wrapperCol={{
+//         ...layout.wrapperCol,
+//         offset: 8,
+//       }}
+//     >
+//       <Button type="primary" htmlType="submit">
+//         Submit
+//       </Button>
+//     </Form.Item>
+//   </Form>
 
-  </>
-  )
-}
+//   </>
+//   )
+// }
