@@ -104,7 +104,7 @@ button:focus-visible {
 .contained {
   display:flex;
   flex-direction: column;
-  height: 200vh;
+  height: 300vh;
   width: 900px
 }
 
@@ -115,15 +115,26 @@ button:focus-visible {
 }
 .map-container {
   width: 900px;
-  height: 80vh;
+  height: 100vh;
 }
 .map{
   display: flex;
-  width: 900px;
-  height: 80vh;
-  z-index: 999;
+  /* width: 900px; */
+  width: 100%;
+  height: 100vh;
+  z-index: 1;
+}
+@media (max-width: 768px) {
+  .map-container {
+    height: 60vh; /* Decrease height for smaller screens */
+  }
 }
 
+@media (max-width: 480px) {
+  .map-container {
+    height: 50vh; /* Further decrease height for mobile screens */
+  }
+}
 .mapNone{
   display: none;
 }

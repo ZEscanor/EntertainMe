@@ -24,6 +24,10 @@ const Sports = "sports"
 const Arts = "arts"
 const itinerary = 'itinerary'
 
+const containerStyle = {
+  width: '400px',
+  height: '400px'
+};
 
 type LatLngLiteral = google.maps.LatLngLiteral;
 type DirectionsResult = google.maps.DirectionsResult;
@@ -187,8 +191,9 @@ const MapData = () => {
         <div className= {`map ${eventCheck === itinerary ? 'mapNone': "" }`}>
         {eventCheck === entertainment || eventCheck === null ? ( 
         <GoogleMap
-        zoom={10}
+        zoom={5}
         center={event || centerer}
+        
         mapContainerClassName='map-container'
         options={mapOptions}
         onLoad={onLoad}
@@ -229,9 +234,14 @@ const MapData = () => {
         </GoogleMap>
         )  :( null )}
        </div> 
-       {eventCheck === fun && <PlacesSearch event={event} classifications={classifications} updateDates={updateDates} eventCheck={eventCheck} /> }
+       
+       {eventCheck === "fun" ? (
+  <div className={eventCheck === "fun" ? "" : null}>
+  <PlacesSearch event={event} classifications={classifications} updateDates={updateDates} eventCheck={eventCheck} />
+</div>
+) : null}
       
-
+       
       
 {
             eventCheck === itinerary && <Itinerary dateList = {dateList}/>

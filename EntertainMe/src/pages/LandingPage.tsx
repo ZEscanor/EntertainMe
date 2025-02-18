@@ -1,8 +1,10 @@
 import React, { PropsWithChildren, useState, useEffect } from 'react';
-import { Layout, Menu, Dropdown, Avatar } from 'antd';
-import { UserOutlined, LogoutOutlined, SettingOutlined } from '@ant-design/icons';
+import { Layout, Menu, Dropdown, Avatar, Input, Button} from 'antd';
+import { UserOutlined, LogoutOutlined, SettingOutlined, DownOutlined } from '@ant-design/icons';
 import { Link, useLocation } from 'react-router-dom';
 import Map from '../components/Map/Map';
+
+
 import Itinerary from '../components/Itinerary/Itinerary';
 
 const { Header, Content, Sider } = Layout;
@@ -83,49 +85,112 @@ const LandingPage: React.FC<PropsWithChildren<{}>> = ({ children }) => {
     },
   ];
 
+
+  const MapMenuItems = [
+    {
+      key: 'Entertainment and Tickets',
+      label: 'Entertainment and Tickets',
+      icon: <SettingOutlined />,
+      onClick: () => console.log('Entertainment clicked'), // Replace with your settings handler
+    },
+    {
+      key: 'Food and Fun',
+      label: 'Food and Fun',
+      icon: <LogoutOutlined />,
+      onClick: () => console.log('Food and Fun clicked'),
+    },
+
+  ];
+
   return (
-    <Layout>
-      <Header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['home']}>
-          {items1.map(item => (
-            item.key !== 'login' || !user ? (
-              <Menu.Item key={item.key}>
-                <Link to={item.href}>{item.label}</Link>
-              </Menu.Item>
-            ) : null
-          ))}
-        </Menu>
-        {user && (
-          <Dropdown     menu={{
-            items: userMenuItems,
-            selectable: true,
-            defaultSelectedKeys: ['3'],
-          }}>
-            <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', marginLeft: '-2000px' }}>
-              <Avatar icon={<UserOutlined />} />
-              <span style={{ marginLeft: 8 }}>{user.name}</span>
-            </div>
-          </Dropdown>
-        )}
-      </Header>
-      <Layout>
-        <Sider width={200} style={{ background: '#fff' }}>
-          <Menu mode="inline" defaultSelectedKeys={['map']} defaultOpenKeys={['sub1']}>
-            {items2.map(item => (
-              <Menu.Item key={item.key}>
-                <Link to={item.href}>{item.label}</Link>
-              </Menu.Item>
-            ))}
-          </Menu>
-        </Sider>
-        <Layout style={{ padding: '0 24px 24px' }}>
-          <Content style={{ padding: 24, margin: 0, minHeight: 280 }}>
-            {isMapRoute && <Map />}
-            {/* {itinRoute && <Itinerary />} */}
-          </Content>
-        </Layout>
-      </Layout>
+    <Layout style={{ minHeight: '300vh' }}>
+  {/* Header */}
+  <Header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: "20px"
+   }}>
+    <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['home']}>
+      {items1.map(item =>
+        item.key !== 'login' || !user ? (
+          <Menu.Item key={item.key}>
+            <Link to={item.href}>{item.label}</Link>
+          </Menu.Item>
+        ) : null
+      )}
+    </Menu>
+    {user && (
+      <Dropdown
+        menu={{
+          items: userMenuItems,
+          selectable: true,
+          defaultSelectedKeys: ['3'],
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', marginLeft: '-2000px' }}>
+          <Avatar icon={<UserOutlined />} />
+          <span style={{ marginLeft: 8 }}>{user.name}</span>
+        </div>
+      </Dropdown>
+    )}
+  </Header>
+
+ 
+
+  {/* Layout Content */}
+  <Layout>
+    {/* <Sider
+      breakpoint="lg"
+      collapsedWidth={0}
+      onBreakpoint={(broken) => {
+        console.log(broken);
+      }}
+      onCollapse={(collapsed, type) => {
+        console.log(collapsed, type);
+      }}
+      width={200}
+      style={{ background: '#fff' }}
+    >
+      <Menu mode="inline" defaultSelectedKeys={['map']} defaultOpenKeys={['sub1']}>
+        {items2.map(item => (
+          <Menu.Item key={item.key}>
+            <Link to={item.href}>{item.label}</Link>
+          </Menu.Item>
+        ))}
+      </Menu>
+    </Sider> */}
+    <Layout style={{ padding: '0 24px 24px' }}>
+   
+
+   
+  <div style={{ background: '#001529', padding: '50px 50px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+  {/* Dropdown Menu */}
+  <Dropdown menu={{  items: MapMenuItems,
+          selectable: true,
+          defaultSelectedKeys: ['3'], }}>   
+    <Button type="primary">
+       <DownOutlined />
+    </Button>
+  </Dropdown>
+
+  {/* First Search Box */}
+  <Input placeholder="Search Location" style={{ width: 200 }} />
+
+  {/* Second Search Box */}
+  <Input placeholder="Search Event" style={{ width: 200 }} />
+
+  {/* Search Button */}
+  <Button type="primary" icon={<UserOutlined />}>
+    Search
+  </Button>
+</div>;
+      <Content style={{ padding: 24, margin: 0, minHeight: 280 }}>
+        {isMapRoute && <Map />}
+        {/* {itinRoute && <Itinerary />} */}
+      </Content>
     </Layout>
+  </Layout>
+</Layout>
+
+
+
   );
 };
 

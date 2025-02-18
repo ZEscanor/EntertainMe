@@ -40,7 +40,7 @@ export default  function PlacesSearch({event, classifications="FUN", eventCheck,
 
     if (mapp !== null && event != undefined) {
       if(!map){
-      map = new google.maps.Map(mapp, {
+      map =  new google.maps.Map(mapp, {
         center: event,
         zoom: 11,
         mapId: "DEMO_MAP_ID"
@@ -72,11 +72,14 @@ export default  function PlacesSearch({event, classifications="FUN", eventCheck,
         mapId: "DEMO_MAP_ID"
         
         
+        
       });
     }
 
     return () => {
       // Clean up event listener if the component unmounts
+
+      
       if (map !== null) {
         google.maps.event.clearListeners(map, 'idle');
       }
@@ -87,12 +90,14 @@ export default  function PlacesSearch({event, classifications="FUN", eventCheck,
         for (let i = 0; i < results.length; i++) {
           //console.log(results[i].geometry?.viewport.eb.lo , results[i].geometry?.viewport?.La.lo);
           const marker = new google.maps.Marker({
+            
             map:map, 
             position: results[i].geometry?.location 
            // {lat:results[i].geometry?.viewport.eb.lo, lng: results[i].geometry?.viewport?.La.lo }
            ,
            title: results[i].name
           })
+          
 
         //   const marker = new google.maps.marker.AdvancedMarkerElement({
         //     map: map,
@@ -150,7 +155,7 @@ export default  function PlacesSearch({event, classifications="FUN", eventCheck,
 
 
 
-return <div className= 'map' >
+return <div className= 'mapkkk' >
    
 </div>;
 }
