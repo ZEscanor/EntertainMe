@@ -141,7 +141,7 @@ const logout = () => {
   /> */}
   {error && <p>{error}</p>}
   <button type="submit" onClick={()=>handleClickevent("SignIn")}>
-    {isSigningIn ? "Sign IN": "Do it Coward"}
+    {isSigningIn ? "Sign In": "Sign Up"}
   </button>
  
   <button onClick={(e) => { e.preventDefault(); handleGoogleSignIn(); }} disabled={isSigningIn}>

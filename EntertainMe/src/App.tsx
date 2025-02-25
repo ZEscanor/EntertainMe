@@ -7,7 +7,7 @@
 import Map from './components/Map/Map';
 //import Navbar from './components/Navbar/Navbar.jsx';
 import './App.css';
-import { Route, Routes, Outlet, BrowserRouter } from 'react-router-dom';
+import { Route, Routes, Outlet, BrowserRouter, Navigate } from 'react-router-dom';
 import { App as AntdApp } from "antd";
 import LandingPage from './pages/LandingPage';
 import { initializeApp } from 'firebase/app';
@@ -68,16 +68,15 @@ function App() {
     <AntdApp>
     <BrowserRouter>
     <Routes>
-      
-   
+         {/* <Route index element={<LandingPage/>}/> */}
+         <Route path="/" element={<Navigate to="/map" replace />} />
       <Route  element={<LandingPage/>}>
         {/* <Route index element={<LandingPage/>}/> */}
-      <Route path="/map" element={<Map/>}/>
-      
-                    
-                    
-                
+      <Route path="/" element={<Map/>}/>
+     
       </Route>
+
+      
       <Route path="/login" element={<Login/>}/>
       
       <Route path="*" element={<LandingPage />} />
