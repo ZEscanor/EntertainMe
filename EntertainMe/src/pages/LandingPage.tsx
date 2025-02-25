@@ -6,6 +6,7 @@ import Map from '../components/Map/Map';
 
 
 import Itinerary from '../components/Itinerary/Itinerary';
+import LandingNavbar from './LandingNavbar';
 
 const { Header, Content, Sider } = Layout;
 
@@ -26,6 +27,9 @@ const items2: MenuItem[] = [
   { label: 'Movies', key: 'movies', icon: <UserOutlined />, href: '/movies' },
   { label: 'Itinerary', key: 'itinerary', icon: <UserOutlined />, href: '/itinerary' },
 ];
+
+
+
 
 const LandingPage: React.FC<PropsWithChildren<{}>> = ({ children }) => {
   const location = useLocation();
@@ -105,7 +109,7 @@ const LandingPage: React.FC<PropsWithChildren<{}>> = ({ children }) => {
   return (
     <Layout style={{ minHeight: '300vh' }}>
   {/* Header */}
-  <Header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: "20px"
+  <Header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center'
    }}>
     <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['home']}>
       {items1.map(item =>
@@ -116,6 +120,7 @@ const LandingPage: React.FC<PropsWithChildren<{}>> = ({ children }) => {
         ) : null
       )}
     </Menu>
+   
     {user && (
       <Dropdown
         menu={{
@@ -131,6 +136,8 @@ const LandingPage: React.FC<PropsWithChildren<{}>> = ({ children }) => {
       </Dropdown>
     )}
   </Header>
+  
+  <LandingNavbar/>
 
  
 
@@ -160,8 +167,8 @@ const LandingPage: React.FC<PropsWithChildren<{}>> = ({ children }) => {
    
 
    
-  <div style={{ background: '#001529', padding: '50px 50px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-  {/* Dropdown Menu */}
+  {/* <div style={{ background: '#001529', padding: '50px 50px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+  
   <Dropdown menu={{  items: MapMenuItems,
           selectable: true,
           defaultSelectedKeys: ['3'], }}>   
@@ -169,18 +176,13 @@ const LandingPage: React.FC<PropsWithChildren<{}>> = ({ children }) => {
        <DownOutlined />
     </Button>
   </Dropdown>
-
-  {/* First Search Box */}
+\
   <Input placeholder="Search Location" style={{ width: 200 }} />
-
-  {/* Second Search Box */}
   <Input placeholder="Search Event" style={{ width: 200 }} />
-
-  {/* Search Button */}
   <Button type="primary" icon={<UserOutlined />}>
     Search
   </Button>
-</div>;
+</div> */}
       <Content style={{ padding: 24, margin: 0, minHeight: 280 }}>
         {isMapRoute && <Map />}
         {/* {itinRoute && <Itinerary />} */}
