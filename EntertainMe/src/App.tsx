@@ -1,11 +1,5 @@
  import {ReactNode, useState, useEffect } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-// import GetEventData from './api/getEventData';
-// import { ApolloClient, InMemoryCache, ApolloProvider, useQuery, useMutation } from '@apollo/client';
-// import ApolloData from './components/ApolloData';
 import Map from './components/Map/Map';
-//import Navbar from './components/Navbar/Navbar.jsx';
 import './App.css';
 import { Route, Routes, Outlet, BrowserRouter, Navigate } from 'react-router-dom';
 import { App as AntdApp } from "antd";
@@ -64,7 +58,7 @@ function App() {
   // }
 
   return (
-    // <ApolloProvider client={client}>
+
     <AntdApp>
     <BrowserRouter>
     <Routes>
@@ -81,19 +75,10 @@ function App() {
       
       <Route path="*" element={<LandingPage />} />
       
-      {/* <Navbar/> */}
-    
-      
-     {/* <div className="card">
-        <ApolloData />
-   </div> */}
-   {/* <GetEventData /> */}
-    {/* </ApolloProvider> */}
+
 
     </Routes>
-    {/* <div className='ok'>
-         kokokok
-    </div> */}
+   
     </BrowserRouter>
     </AntdApp>
 
