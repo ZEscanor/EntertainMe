@@ -7,8 +7,10 @@ import {
     // MarkerClusterer,
 
 } from "@react-google-maps/api";
-
+import { ToastContainer,  toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Popout from "./Popout"
+import { Modal } from "antd";
 
 const EventMarkers = ({ event, fetchDirections, classifications = "music", updateDates}) => {
   const latlon = `${event.lat}` + "," + `${event.lng}`;
@@ -113,8 +115,14 @@ const [modal, setModal]= useState(false);
   const openModal = (eventId) => {
     setModal(eventId)
   }
-  const closeModal = () => {
+  const closeModal = (event) => {
     setModal(null)
+    if(event == null){
+      return
+    }
+    else {
+    toast(`Added ${event} to the list`)
+    }
   }
   const memoizedEventFilterer = useMemo(() => eventFilterer, [eventFilterer]);
   const memoizedVenueEvents = useMemo(() => venueEvents, [venueEvents]);
@@ -122,6 +130,7 @@ const [modal, setModal]= useState(false);
 <>
   {/* {(clusterer) => ( */}
   <div>
+
   {memoizedEventFilterer?.map((area) => (
     <Marker key={area.lat} 
     position={{lat: parseFloat(area._embedded.venues[0].location.latitude), lng:parseFloat(area._embedded.venues[0].location.longitude)}} 
@@ -148,12 +157,26 @@ const [modal, setModal]= useState(false);
              
             
              </a> */}
-             {modal === event.id ? <Popout event={event} updateDates={updateDates} closeModal={closeModal}/> :
-             <div  className="modal" onClick={()=>openModal(event.id)}>
+             {/* {modal === event.id ? (
+             
+             <Modal
+             <Popout event={event} updateDates={updateDates} closeModal={closeModal}/>
+             <Modal/> ):(
+             <div   onClick={()=>openModal(event.id)}>
              {event.name}
          
              </div>
-                  } 
+             )
+                  }  */}
+                  {modal === event.id ? (
+
+    <Popout event={event} updateDates={updateDates} closeModal={closeModal} modal={modal} />
+
+) : (
+  <div onClick={() => openModal(event.id)}>
+    {event.name}
+  </div>
+)}
            
           </li>
           
@@ -165,6 +188,19 @@ const [modal, setModal]= useState(false);
 </div>
   
 {/* )}  */}
+<ToastContainer
+position="top-center"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="light"
+
+/>
 </>
 
   )

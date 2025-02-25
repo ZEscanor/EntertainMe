@@ -12,6 +12,7 @@ import Placer from './Placer';
 import EventMarkers from "./EventMarkers.jsx";
 import PlacesSearch from "./PlacesSearch.tsx"; 
 import Itinerary from '../Itinerary/Itinerary.tsx';
+import { ToastContainer,toast } from 'react-toastify';
 
 
 const entertainment = "entertainment"
@@ -23,6 +24,10 @@ const Sports = "sports"
 const Arts = "arts"
 const itinerary = 'itinerary'
 
+const containerStyle = {
+  width: '400px',
+  height: '400px'
+};
 
 type LatLngLiteral = google.maps.LatLngLiteral;
 type DirectionsResult = google.maps.DirectionsResult;
@@ -103,17 +108,23 @@ const MapData = () => {
 
     const handleClassSet = (passed:string) => {
       setClassifications(passed);
+
+     
+
+
     }
 
     const updateDates = (newDate) => {
       setDateList((prevDates) =>{
       if(prevDates?.includes(newDate)){
-        console.log("Sorry That event is already in the list")
+     
         return prevDates;
       }
       else{
+       
        const updatedDateList = [...prevDates, newDate];
-      //console.log(updatedDateList, 'dateList');
+      
+      
       return updatedDateList
       }
     });
@@ -180,8 +191,9 @@ const MapData = () => {
         <div className= {`map ${eventCheck === itinerary ? 'mapNone': "" }`}>
         {eventCheck === entertainment || eventCheck === null ? ( 
         <GoogleMap
-        zoom={10}
+        zoom={5}
         center={event || centerer}
+        
         mapContainerClassName='map-container'
         options={mapOptions}
         onLoad={onLoad}
@@ -222,13 +234,32 @@ const MapData = () => {
         </GoogleMap>
         )  :( null )}
        </div> 
-       {eventCheck === fun && <PlacesSearch event={event} classifications={classifications} updateDates={updateDates} eventCheck={eventCheck} /> }
+       
+       {eventCheck === "fun" ? (
+  <div className={eventCheck === "fun" ? "" : null}>
+  <PlacesSearch event={event} classifications={classifications} updateDates={updateDates} eventCheck={eventCheck} />
+</div>
+) : null}
       
-
+       
       
 {
             eventCheck === itinerary && <Itinerary dateList = {dateList}/>
           }
+
+<ToastContainer
+position="top-center"
+autoClose={3000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="light"
+
+/>
     </div>
   )
 }

@@ -1,7 +1,7 @@
 #root {
-  max-width: 1280px;
+  
   margin: 0 auto;
-  padding: 2rem;
+
   text-align: center;
 }
 
@@ -33,6 +33,10 @@
   }
 }
 
+.Middle{
+  margin-top: 100px;
+}
+
 .card {
   padding: 2em;
 }
@@ -42,18 +46,20 @@
 }
 
 .Fun {
-  width: 50px; /* Set the width */
-  height: 50px; /* Set the height */
+  /* Set the width */
+   /* Set the height */
   padding: 50px; /* Add padding for better visual */
   background-color: #3498db; /* Button color */
   margin-bottom: 30px;
   display: flex;
   justify-content: center;
+  text-align: center;
   color: #fff; /* Text color */
   border: black; /* Remove default button border */
   border-radius: 5px; /* Optional: Add border radius for rounded corners */
   cursor: pointer; /* Set cursor to pointer for better UX */
   /* Add any additional styles as needed */
+  
 }
 
 .Fun:hover{
@@ -63,8 +69,8 @@
 
 
 .entertainment {
-  width: 50px; /* Set the width */
-  height: 50px; /* Set the height */
+   /* Set the width */
+   /* Set the height */
   padding: 50px; /* Add padding for better visual */
   background-color: lawngreen; /* Button color */
   display: flex;
@@ -83,8 +89,8 @@
 }
 
 .askAi{
-  width: 50px; /* Set the width */
-  height: 50px; /* Set the height */
+   /* Set the width */
+/* Set the height */
   padding: 50px; /* Add padding for better visual */
   background-color: lightcoral; /* Button color */
   display: flex;

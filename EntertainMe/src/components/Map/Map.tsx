@@ -3,7 +3,9 @@ import MapData from "./MapData";
 
 const libraries: Libraries = ["places"] 
 
-const Map = () => {
+
+
+const Map: React.FC = () => {
    const {isLoaded} = useLoadScript({
       googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
       

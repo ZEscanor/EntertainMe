@@ -45,19 +45,7 @@ table {
 
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+ 
 }
 
 .topmostDiv {
@@ -72,13 +60,7 @@ a:hover {
   color: #535bf2;
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
+
 
 h1 {
   font-size: 3.2em;
@@ -92,12 +74,14 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: white;
+  border-color: black;
   cursor: pointer;
   transition: border-color 0.25s;
 }
 button:hover {
   border-color: #646cff;
+  background-color: #333;
 }
 button:focus,
 button:focus-visible {
@@ -120,8 +104,8 @@ button:focus-visible {
 .contained {
   display:flex;
   flex-direction: column;
-  height: 200vh;
-  width: 900px
+  height: 300vh;
+  width: 1200px
 }
 
 .controlBar {
@@ -130,16 +114,27 @@ button:focus-visible {
   color: yellowgreen;
 }
 .map-container {
-  width: 900px;
-  height: 80vh;
+  width: 1200px;
+  height: 100vh;
 }
 .map{
   display: flex;
-  width: 900px;
-  height: 80vh;
-  z-index: 999;
+  /* width: 900px; */
+  width: 100%;
+  height: 100vh;
+  z-index: 1;
+}
+@media (max-width: 768px) {
+  .map-container {
+    height: 60vh; /* Decrease height for smaller screens */
+  }
 }
 
+@media (max-width: 480px) {
+  .map-container {
+    height: 50vh; /* Further decrease height for mobile screens */
+  }
+}
 .mapNone{
   display: none;
 }
@@ -160,8 +155,12 @@ button:focus-visible {
   color: #f00;
   font-weight: bold;
 }
+.eventFilter button{
+  color: red;
+}
 .suggestions {
   background-color: white;
+  color: black;
   padding-left:  0px;
   list-style-type: none;
   margin-top: 20px;
@@ -177,8 +176,8 @@ button:focus-visible {
   margin-bottom: 10px;
 }
 .liste:hover{
-  background-color: #f0f0f0; /* Background color on hover */
-  color: #333;
+  background-color: tan; /* Background color on hover */
+  color: red;
   cursor: pointer;
 }
 .comboboxInput{
@@ -221,13 +220,14 @@ button:focus-visible {
   margin-right: 20px;
 }
 
-.feList p:hover{
-  color: red;
-  cursor: pointer;
-  
-}
+
 .hidden {
   display: none;
+}
+
+.active {
+  background-color: #f0f0f0; /* Example background color for highlighting */
+  color: #333; /* Example text color */
 }
 .modal{
   display: flex;
@@ -246,6 +246,8 @@ button:focus-visible {
 }
 .popout button{
   margin-right: 10px;
+  color: #f00;
+  background-color: #213547;
 }
 .ok{
   background-color: #f00;
@@ -258,15 +260,24 @@ button:focus-visible {
 
 .menuTab{
   background-color: black;
-display: flex;
-flex-direction: row;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;  /* Centers content */
+  align-items: center;  /* Aligns items vertically */
   padding: 1rem;
   color: yellowgreen;
+  gap: 20px; /* Adds spacing between menu items */
+}
+
+.feList p:hover{
+  color: red;
+  cursor: pointer;
+  
 }
 
 .bottomBar{
   display: flex;
-  
+  gap: 20px;
 }
 
 
@@ -283,3 +294,4 @@ flex-direction: row;
 .Fun, .feList,.entertainment{
   margin-right: 200px;
 }
+

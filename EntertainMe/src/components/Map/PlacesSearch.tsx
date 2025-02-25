@@ -40,9 +40,10 @@ export default  function PlacesSearch({event, classifications="FUN", eventCheck,
 
     if (mapp !== null && event != undefined) {
       if(!map){
-      map = new google.maps.Map(mapp, {
+      map =  new google.maps.Map(mapp, {
         center: event,
         zoom: 11,
+        mapId: "DEMO_MAP_ID"
       });
     
      
@@ -68,6 +69,8 @@ export default  function PlacesSearch({event, classifications="FUN", eventCheck,
         center: {lat: 41.8781136 , lng: -87.6297982
         },
         zoom: 15,
+        mapId: "DEMO_MAP_ID"
+        
         
         
       });
@@ -75,6 +78,8 @@ export default  function PlacesSearch({event, classifications="FUN", eventCheck,
 
     return () => {
       // Clean up event listener if the component unmounts
+
+      
       if (map !== null) {
         google.maps.event.clearListeners(map, 'idle');
       }
@@ -85,16 +90,24 @@ export default  function PlacesSearch({event, classifications="FUN", eventCheck,
         for (let i = 0; i < results.length; i++) {
           //console.log(results[i].geometry?.viewport.eb.lo , results[i].geometry?.viewport?.La.lo);
           const marker = new google.maps.Marker({
+            
             map:map, 
             position: results[i].geometry?.location 
            // {lat:results[i].geometry?.viewport.eb.lo, lng: results[i].geometry?.viewport?.La.lo }
            ,
            title: results[i].name
           })
+          
+
+        //   const marker = new google.maps.marker.AdvancedMarkerElement({
+        //     map: map,
+        //     position: results[i].geometry?.location,
+        //     title: results[i].name
+        // });
           const additionalContent = `<div style="color: black "><strong>Name:</strong> ${results[i].name}</div>
           <div style = "color: black "><strong>Address:</strong> ${results[i].formatted_address}</div>
           <div style = "color: black "><strong>Type of Place:</strong> ${results[i].types[0].toUpperCase()}</div>
-          <button id= addToMyListButton >Add to List</button>
+          <button id= addToMyListButton >More Info</button>
           `;
            
           const infoWindow = new google.maps.InfoWindow({
@@ -142,7 +155,7 @@ export default  function PlacesSearch({event, classifications="FUN", eventCheck,
 
 
 
-return <div className= 'map' >
+return <div className= 'mapkkk' >
    
 </div>;
 }
