@@ -101,9 +101,9 @@ const Itinerary:React.FC<ItinProps> = ({dateList}) => {
         </div>
       ): <div>No items, Add some locations to your list!</div>}
 
-      {dateList.length > 0 && <button onClick={()=> console.log(dateList)}>
+      {/* {dateList.length > 0 && <button onClick={()=> console.log(dateList)}>
         Send Message
-        </button>}
+        </button>} */}
     </div>
 
   )

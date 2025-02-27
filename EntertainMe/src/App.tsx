@@ -7,20 +7,6 @@ import LandingPage from './pages/LandingPage';
 import { initializeApp } from 'firebase/app';
 import Login from './login/index.jsx'
 import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-// const firebaseConfig = {
-//   apiKey: "AIzaSyC7lrzJz8lTKwAAcSQE90pjOoUgBuExhA0",
-//   authDomain: "entertainme-399518.firebaseapp.com",
-//   projectId: "entertainme-399518",
-//   storageBucket: "entertainme-399518.appspot.com",
-//   messagingSenderId: "803804088935",
-//   appId: "1:803804088935:web:4465ac7f03b1deb7c8a2c2",
-//   measurementId: "G-WL9V53RF7G"
-// };
 
 
 // initializeApp(firebaseConfig)
@@ -33,12 +19,7 @@ interface LayoutProps {
 }
 
 function App() {
-  //const [count, setCount] = useState(0)
-  // const client = new ApolloClient({
-  //   cache: new InMemoryCache(), // will cache the data so that we don't have to fetch it again
-  //   uri: 'http://localhost:4000/graphql' 
-  // })
-
+ 
   const [firebaseIntialized, setFirebaseInitialized] = useState(false)
 
 

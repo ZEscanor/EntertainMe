@@ -22,6 +22,7 @@ const EventMarkers = ({ event, fetchDirections, classifications = "music", updat
   // classificationName= music
 const [venueEvents, setVenueEvents] = useState([]);
 const [modal, setModal]= useState(false);
+let count  = 0
 
   //console.log(url);
 
@@ -131,8 +132,9 @@ const [modal, setModal]= useState(false);
   {/* {(clusterer) => ( */}
   <div>
 
-  {memoizedEventFilterer?.map((area) => (
-    <Marker key={area.lat} 
+  {memoizedEventFilterer?.map((area, idx) => (
+  
+    <Marker key={idx} 
     position={{lat: parseFloat(area._embedded.venues[0].location.latitude), lng:parseFloat(area._embedded.venues[0].location.longitude)}} 
     // clusterer={clusterer}
     onClick={()=>{
@@ -198,7 +200,7 @@ rtl={false}
 pauseOnFocusLoss
 draggable
 pauseOnHover
-theme="light"
+theme="dark"
 
 />
 </>
