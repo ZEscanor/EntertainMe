@@ -89,7 +89,7 @@ const logout = () => {
               if (localStorage.getItem('user')) {
                   setUserFromGoogle(JSON.parse(localStorage.getItem('user')));
                   setUserLoggedIn(true);
-                  navigate('/home', { replace: true });
+                  navigate('/map', { replace: true });
                   // Set a timer to automatically log out after 300 seconds (5 minutes)
                   setTimeout(() => {
                       // Call a function to handle logout

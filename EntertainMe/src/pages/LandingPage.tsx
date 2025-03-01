@@ -75,12 +75,12 @@ const LandingPage: React.FC<PropsWithChildren<{}>> = ({ children }) => {
       icon: <SettingOutlined />,
       onClick: () => console.log('Settings clicked'), // Replace with your settings handler
     },
-    {
-      key: 'logout1',
-      label: 'Logoutmnn',
-      icon: <LogoutOutlined />,
-      onClick: handleLogout,
-    },
+    // {
+    //   key: 'logout1',
+    //   label: 'Logoutmnn',
+    //   icon: <LogoutOutlined />,
+    //   onClick: handleLogout,
+    // },
     {
       key: 'logout2',
       label: 'Logout',
