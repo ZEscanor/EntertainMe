@@ -13,6 +13,7 @@ import EventMarkers from "./EventMarkers.jsx";
 import PlacesSearch from "./PlacesSearch.tsx"; 
 import Itinerary from '../Itinerary/Itinerary.tsx';
 import { ToastContainer,toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const entertainment = "entertainment"
@@ -117,11 +118,11 @@ const MapData = () => {
     const updateDates = (newDate) => {
       setDateList((prevDates) =>{
       if(prevDates?.includes(newDate)){
-     
+      // toast("Already in the List")
         return prevDates;
       }
       else{
-       
+      //  toast(`Added ${newDate} to the listh`)
        const updatedDateList = [...prevDates, newDate];
       
       
@@ -130,6 +131,11 @@ const MapData = () => {
     });
     
   };
+
+ 
+
+
+  
 
     
   return (
@@ -247,19 +253,7 @@ const MapData = () => {
             eventCheck === itinerary && <Itinerary dateList = {dateList}/>
           }
 
-<ToastContainer
-position="top-center"
-autoClose={3000}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover
-theme="light"
 
-/>
     </div>
   )
 }

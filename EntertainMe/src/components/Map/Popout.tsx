@@ -30,6 +30,18 @@ interface PopoutProps {
   closeModal?: (event: string) => void; // Adjust this type according to closeModal function
 }
 
+function formatReadableDate(dateStr, timeStr) {
+  let dateTime = new Date(`${dateStr}T${timeStr}`); // Combine date and time properly
+  
+  return dateTime.toLocaleString("en-US", { 
+      month: "long", day: "numeric", year: "numeric", 
+      hour: "2-digit", minute: "2-digit", hour12: true 
+  });
+}
+// Example usage
+
+// Output: "May 1, 2025, 7:30 PM"
+
 const Popout: React.FC<PopoutProps> = ({event, closeModal, updateDates ,modal}) => {
   
   //console.log(event, "in popout")'
@@ -82,8 +94,8 @@ const Popout: React.FC<PopoutProps> = ({event, closeModal, updateDates ,modal}) 
     <p>Venue: {event._embedded.venues[0].name}</p>
 )}
          {event.dates && (
-    <p>Dates: {event.dates.start.localDate}
-    {event.dates.start.localTime}
+    <p>Dates: {formatReadableDate(event.dates.start.localDate,event.dates.start.localTime )}
+    {/* {event.dates.start.localTime} */}
     </p>
 )}
 

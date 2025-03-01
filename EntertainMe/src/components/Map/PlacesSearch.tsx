@@ -107,7 +107,7 @@ export default  function PlacesSearch({event, classifications="FUN", eventCheck,
           const additionalContent = `<div style="color: black "><strong>Name:</strong> ${results[i].name}</div>
           <div style = "color: black "><strong>Address:</strong> ${results[i].formatted_address}</div>
           <div style = "color: black "><strong>Type of Place:</strong> ${results[i].types[0].toUpperCase()}</div>
-          <button id= addToMyListButton >More Info</button>
+          <button id= addToMyListButton >Add to list</button>
           `;
            
           const infoWindow = new google.maps.InfoWindow({
