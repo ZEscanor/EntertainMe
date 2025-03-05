@@ -2,11 +2,12 @@
 import Map from './components/Map/Map';
 import './App.css';
 import { Route, Routes, Outlet, BrowserRouter, Navigate } from 'react-router-dom';
-import { App as AntdApp } from "antd";
+import { App as AntdApp, Layout } from "antd";
 import LandingPage from './pages/LandingPage';
 import { initializeApp } from 'firebase/app';
 import Login from './login/index.jsx'
 import { getAnalytics } from "firebase/analytics";
+import Settings from './components/settings/Settings.js';
 
 
 // initializeApp(firebaseConfig)
@@ -17,6 +18,21 @@ import { getAnalytics } from "firebase/analytics";
 interface LayoutProps {
   children?: ReactNode;
 }
+const { Content } = Layout;
+
+
+
+const MainLayout: React.FC<LayoutProps> = ({ children }) => {
+  return (
+ 
+      <LandingPage>{/* Persistent component */}
+      <Content style={{ padding: "24px" }}>
+        {children}
+      </Content>
+      </LandingPage> 
+
+  );
+};
 
 function App() {
  
@@ -40,27 +56,42 @@ function App() {
 
   return (
 
-    <AntdApp>
-    <BrowserRouter>
-    <Routes>
-         {/* <Route index element={<LandingPage/>}/> */}
-         <Route path="/" element={<Navigate to="/map" replace />} />
-      <Route  element={<LandingPage/>}>
-        {/* <Route index element={<LandingPage/>}/> */}
-      <Route path="/" element={<Map/>}/>
+    // <AntdApp>
+    // <BrowserRouter>
+    // <Routes>
+    //      {/* <Route index element={<LandingPage/>}/> */}
+    //      <Route path="/" element={<Navigate to="/map" replace />} />
+    //   <Route  element={<LandingPage/>}>
+    //     {/* <Route index element={<LandingPage/>}/> */}
+    //   <Route path="/" element={<Map/>}/>
      
-      </Route>
+    //   </Route>
 
       
-      <Route path="/login" element={<Login/>}/>
+    //   <Route path="/login" element={<Login/>}/>
+    //   <Route path="/settings" element={<Settings/>}/>
       
-      <Route path="*" element={<LandingPage />} />
+    //   <Route path="*" element={<LandingPage />} />
       
 
 
-    </Routes>
+    // </Routes>
    
-    </BrowserRouter>
+    // </BrowserRouter>
+    // </AntdApp>
+
+
+
+<AntdApp>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Navigate to="/map" replace />} />
+          <Route path="/map" element={<MainLayout> <Map /> </MainLayout>}  />
+          <Route  path="/login" element={ <Login />} />
+          <Route path="/settings" element={<MainLayout> <Settings /> </MainLayout>} />
+          <Route path="*" element={<MainLayout> <Map /> </MainLayout>} />
+        </Routes>
+      </BrowserRouter>
     </AntdApp>
 
   )
