@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Layout, Menu, Card, Form, Input, Switch, Button, message } from "antd";
 import { SettingOutlined, UserOutlined, DatabaseOutlined } from "@ant-design/icons";
+import LandingPage from "../../pages/LandingPage";
+
 
 const { Header, Sider, Content } = Layout;
 
@@ -20,6 +22,7 @@ const Settings: React.FC = () => {
     switch (selectedKey) {
       case "1":
         return (
+            
           <Form layout="vertical" onFinish={onFinish} initialValues={{ notifications: true }}>
             <Form.Item label="Username" name="username" rules={[{ required: true, message: "Please enter your username" }]}>            
               <Input placeholder="Enter your username" />

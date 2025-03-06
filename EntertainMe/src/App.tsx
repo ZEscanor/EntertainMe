@@ -8,6 +8,7 @@ import { initializeApp } from 'firebase/app';
 import Login from './login/index.jsx'
 import { getAnalytics } from "firebase/analytics";
 import Settings from './components/settings/Settings.js';
+import Signup from './login/Signup.js';
 
 
 // initializeApp(firebaseConfig)
@@ -89,6 +90,7 @@ function App() {
           <Route path="/map" element={<MainLayout> <Map /> </MainLayout>}  />
           <Route  path="/login" element={ <Login />} />
           <Route path="/settings" element={<MainLayout> <Settings /> </MainLayout>} />
+          <Route  path="/signup" element={ <Signup />} />
           <Route path="*" element={<MainLayout> <Map /> </MainLayout>} />
         </Routes>
       </BrowserRouter>

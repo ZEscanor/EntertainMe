@@ -152,7 +152,9 @@ const logout = () => {
 
       <Text>
         {isSigningUp ? "Already have an account?" : "Don't have an account?"}{" "}
-        <Button>{isSigningUp ? "Sign In" : "Sign Up"}</Button>
+        <Button>
+        <Link to="/signup"   > {isSigningUp ? "Sign In" : "Sign Up"}</Link> 
+          </Button>
       </Text>
     </Space>
   </Card>
