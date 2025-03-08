@@ -8,13 +8,13 @@ import { initializeApp } from 'firebase/app';
  const apikeyF = import.meta.env.GOOGLE_FIREBASE_API_KEY
     // Initialize Firebase
     const firebaseConfig = {
-      apiKey: "AIzaSyC7lrzJz8lTKwAAcSQE90pjOoUgBuExhA0" ,
-      authDomain: "entertainme-399518.firebaseapp.com",
-      projectId: "entertainme-399518",
-      storageBucket: "entertainme-399518.appspot.com",
-      messagingSenderId: "803804088935",
-      appId: "1:803804088935:web:4465ac7f03b1deb7c8a2c2",
-      measurementId: "G-WL9V53RF7G"
+      apiKey: import.meta.env.VITE_GOOGLE_FIREBASE_API_KEY,
+      authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+      projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+      storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+      messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+      appId: import.meta.env.VITE_FIREBASE_APP_ID,
+      measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
     };
  
 

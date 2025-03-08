@@ -2,7 +2,9 @@ import React, {useState, useEffect} from 'react'
 
 import {Navigate, Link, useNavigate} from 'react-router-dom'
 
-import {Form, InputNumber, Input, Button} from 'antd';
+import {Form, InputNumber, Input, Button, Card,Space ,Typography} from 'antd';
+
+import {GoogleOutlined} from "@ant-design/icons";
 
 
 import {createUserWithEmailandPass, googleSignIn, signInWithEmailandPass,signOut} from './auth'
@@ -12,7 +14,7 @@ import {createUserWithEmailandPass, googleSignIn, signInWithEmailandPass,signOut
 //import {useAuth} from '../contexts/authContext'
 
 
-
+const {Title, Text} = Typography
 
 const Login = () => {
 
@@ -66,10 +68,12 @@ const logout = () => {
     }
 
 
-    const  onFinish = async (values) => {
-      console.log('Success:', values.user);
-      let user = values.user
-      let result = await signInWithEmailandPass(user.name,user.password)
+    const  onFinish = async () => {
+     
+      const {user} = formData
+      console.log('Success:', user.email, user.password);
+      
+      let result = await signInWithEmailandPass(user.email,user.password)
       if (result.success) {
         console.log(`Welcome, ${JSON.stringify(result.user)}!`);
         // Redirect to a different page or update UI
@@ -121,104 +125,44 @@ const logout = () => {
 
   return (
  
-    <div>
-   {/* {userLoggedIn && (<Navigate to={'/'} replace={true}/> )} */}
-   <Form onSubmit={onSubmit}>
- 
-  {/* <input
-    type="email"
-    placeholder="Email"
-    value={email}
-    onChange={(e) => setEmail(e.target.value)}
-    
-  />
-  <input
-    type="password"
-    placeholder="Password"
-    value={password}
-    onChange={(e) => setPassword(e.target.value)}
-    
-  /> */}
-  {error && <p>{error}</p>}
-  <button type="submit" onClick={()=>handleClickevent("SignIn")}>
-    {isSigningIn ? "Sign In": "Sign Up"}
-  </button>
- 
-  <button onClick={(e) => { e.preventDefault(); handleGoogleSignIn(); }} disabled={isSigningIn}>
-  {isSigningIn ? 'Signing In with Google...' : 'Sign In with Google'}
-</button>
-  <p>Don't have an account? <Link to="/signup">Sign Up</Link></p>
-</Form>
-{isSigningUp ? (
-  <div
-  style={{
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100vh',
-  }}
-  >
-  <Form 
-  labelCol={{
-    span: 8,
-  }}
-  wrapperCol={{
-    span: 16,
-  }}
-  style={{
-    maxWidth: 600,
-    width: '100%',
-  
-  }}
-  initialValues={{
-    remember: true,
-  }}
-  onFinish={onFinish}
-  onFinishFailed={onFinishFailed}
-  autoComplete="off"
-  
-  >
-  <Form.Item
-    name={['user', 'name']}
-    label="Name"
-    rules={[
-      {
-        required: true,
-      },
-    ]}
-  >
-    <Input
-      name="name"
-      value={formData.user.name}
-      onChange={handleInputChange}
-    />
-  </Form.Item>
-  <Form.Item
-    name={['user', 'password']}
-    label="Password"
-    rules={[
-      {
-        required: true,
-      },
-    ]}
-  >
-    <Input
-      name="password"
-      type="password"
-      value={formData.user.password}
-      onChange={handleInputChange}
-    />
-  </Form.Item>
+    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", background: "#f0f2f5" }}>
+  <Card style={{ width: 400, padding: 20, textAlign: "center" }}>
+    <Title level={2}>{isSigningUp ? "Sign Up" : "Sign In"}</Title>
 
-  <Button type="primary" htmlType="submit">
-        Submit
+    <Form layout="vertical" onFinish={onFinish}>
+      <Form.Item label="Email" name="email" rules={[{ required: true, type: "email", message: "Please enter a valid email" }]}>
+        <Input name="email" value={formData.user.email} onChange={handleInputChange} />
+      </Form.Item>
+
+      <Form.Item label="Password" name="password" rules={[{ required: true, message: "Please enter your password" }]}>
+        <Input.Password name="password" value={formData.user.password} onChange={handleInputChange} />
+      </Form.Item>
+
+      {error && <Text type="danger">{error}</Text>}
+
+      <Button type="primary" htmlType="submit"  >
+        {isSigningUp ? "Sign Up" : "Sign In"}
       </Button>
-</Form>
+    </Form>
+
+    <Space direction="vertical" style={{ width: "100%", marginTop: 16 }}>
+      <Button icon={<GoogleOutlined />} block onClick={handleGoogleSignIn} loading={isSigningIn}>
+        {isSigningIn ? "Signing In with Google..." : "Sign In with Google"}
+      </Button>
+
+      <Text>
+        {isSigningUp ? "Already have an account?" : "Don't have an account?"}{" "}
+        <Button>
+        <Link to="/signup"   > {isSigningUp ? "Sign In" : "Sign Up"}</Link> 
+          </Button>
+      </Text>
+    </Space>
+  </Card>
 </div>
-) : null}
-    </div>
-  )
-}
+
+)};
+  
+
 
 export default Login
 
@@ -226,86 +170,6 @@ export default Login
 
 
 
-// const SignUpManually = () => {
 
-//   const layout = {
-//     labelCol: {
-//       span: 8,
-//     },
-//     wrapperCol: {
-//       span: 16,
-//     },
-//   };
 
-//   const onFinish = (values) => {
-//     console.log(values);
-//   };
 
-//   return (
-//     <>
-//    <Form
-//     {...layout}
-//     name="nest-messages"
-//     onFinish={onFinish}
-//     style={{
-//       maxWidth: 600,
-//     }}
-//     // validateMessages={validateMessages}
-//   >
-//     <Form.Item
-//       name={['user', 'name']}
-//       label="Name"
-//       rules={[
-//         {
-//           required: true,
-//         },
-//       ]}
-//     >
-//       <Input />
-//     </Form.Item>
-//     <Form.Item
-//       name={['user', 'email']}
-//       label="Email"
-//       rules={[
-//         {
-//           type: 'email',
-//         },
-//       ]}
-//     >
-//       <Input />
-//     </Form.Item>
-  
-//     <Form.Item
-//       name={['user', 'age']}
-//       label="Age"
-//       rules={[
-//         {
-//           type: 'number',
-//           min: 0,
-//           max: 99,
-//         },
-//       ]}
-//     >
-//       <InputNumber />
-//     </Form.Item>
-//     <Form.Item name={['user', 'website']} label="Website">
-//       <Input />
-//     </Form.Item>
-//     <Form.Item name={['user', 'introduction']} label="Introduction">
-//       <Input.TextArea />
-//     </Form.Item>
-//     <Form.Item
-//       wrapperCol={{
-//         ...layout.wrapperCol,
-//         offset: 8,
-//       }}
-//     >
-//       <Button type="primary" htmlType="submit">
-//         Submit
-//       </Button>
-//     </Form.Item>
-//   </Form>
-
-//   </>
-//   )
-// }

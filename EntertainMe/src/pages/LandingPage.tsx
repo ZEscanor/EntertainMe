@@ -1,7 +1,7 @@
 import React, { PropsWithChildren, useState, useEffect } from 'react';
 import { Layout, Menu, Dropdown, Avatar, Input, Button} from 'antd';
 import { UserOutlined, LogoutOutlined, SettingOutlined, DownOutlined } from '@ant-design/icons';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Map from '../components/Map/Map';
 
 
@@ -33,11 +33,14 @@ const items2: MenuItem[] = [
 
 const LandingPage: React.FC<PropsWithChildren<{}>> = ({ children }) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [dateList, setDateList] = useState([]);
   const [user, setUser] = useState<any>(null);
 
   const isMapRoute = location.pathname === '/map';
   const itinRoute = location.pathname === '/itinerary';
+
+ 
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -73,7 +76,9 @@ const LandingPage: React.FC<PropsWithChildren<{}>> = ({ children }) => {
       key: 'settings',
       label: 'Settings',
       icon: <SettingOutlined />,
-      onClick: () => console.log('Settings clicked'), // Replace with your settings handler
+      onClick: () => {if (location.pathname !== "/settings") {
+        navigate("/settings");
+      }}, // Replace with your settings handler
     },
     // {
     //   key: 'logout1',
